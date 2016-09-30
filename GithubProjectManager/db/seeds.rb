@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+project = Project.create(repo:'http', title:'New Reopo1')
+user1 =  User.create(name:'Tal',username:'tal@tal' ,profile_picture:'http')
+user2 =  User.create(name:'Tom',username:'tal@tal', profile_picture:'http')
