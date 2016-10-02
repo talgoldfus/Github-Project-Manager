@@ -7,12 +7,29 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-project = Project.create(repo:'http', title:'New Reopo1')
-user1 =  User.create(name:'Tal',username:'tal@tal' ,profile_picture:'http')
-user2 =  User.create(name:'Tom',username:'Tom@Tom', profile_picture:'http')
-user3 =  User.create(name:'Tod',username:'Tod@Tod' ,profile_picture:'http')
-user4 =  User.create(name:'James',username:'James@James' ,profile_picture:'http')
-user5 =  User.create(name:'John',username:'John@John' ,profile_picture:'http')
-project.managers =[user5,user3]
-project.users = [user1,user2,user4]
-task1= Task.create(priority:0 , project_id: project ,status: "wip")
+project1 = Project.create(repo:'http://', title:'Fizzbuzz')
+project2 = Project.create(repo:'http://', title:'FeedMe')
+project3 = Project.create(repo:'http://', title:'Artist Base')
+
+
+tal =  User.create(name:'Tal',username:'tal@tal.com' ,profile_picture:'http')
+tom =  User.create(name:'Tom',username:'Tom@Tom.com', profile_picture:'http')
+tod =  User.create(name:'Tod',username:'Tod@Tod.com' ,profile_picture:'http')
+james =  User.create(name:'James',username:'James@James.com' ,profile_picture:'http')
+john =  User.create(name:'John',username:'John@John.com' ,profile_picture:'http')
+kevin =  User.create(name:'Kevin',username:'Kevin@Kevin.com' ,profile_picture:'http')
+
+project1.managers =[tod,kevin]
+project1.users = [james,tal,john]
+
+project2.managers =[tal]
+project2.users = [tom,kevin]
+
+project3.managers =[tal,james]
+project3.users = [tom,kevin,john,tod]
+
+3.times do |i|
+  Task.create(priority:1 , project_id: i+1 ,content:'Create Database Relations',status: "pending")
+  Task.create(priority:2 , project_id: i+1 ,content:'Create Model Methods',status: "pending")
+  Task.create(priority:5 , project_id: i+1 ,content:'Create logo',status: "pending")
+end
