@@ -3,7 +3,6 @@ module Api
     class ProjectsController < ApplicationController
 
       def index
-        byebug
         if params[:public]
           projects = Project.all.select {|p| p.public }
           render json: projects , each_serializer: Projects::IndexSerializer

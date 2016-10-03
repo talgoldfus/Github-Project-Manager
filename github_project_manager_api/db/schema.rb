@@ -25,17 +25,17 @@ ActiveRecord::Schema.define(version: 20161002031714) do
   create_table "projects", force: :cascade do |t|
     t.string   "repo"
     t.string   "title"
-    t.boolean  "public"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "public",     default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "tasks", force: :cascade do |t|
     t.integer  "priority"
     t.integer  "project_id"
-    t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "status",     default: "Pending"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "content"
   end
 

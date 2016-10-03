@@ -9,7 +9,7 @@
 
 project1 = Project.create(repo:'http://', title:'Fizzbuzz')
 project2 = Project.create(repo:'http://', title:'FeedMe')
-project3 = Project.create(repo:'http://', title:'Artist Base')
+project3 = Project.create(repo:'http://', title:'Artist Base' ,public:false)
 
 
 tal =  User.create(name:'Tal',username:'tal@tal.com' ,profile_picture:'http')
