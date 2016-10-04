@@ -2,6 +2,8 @@ module Api
   module V1
     class ProjectsController < ApplicationController
 
+     before_action: authenticate_request!
+
       def index
         if params[:public]
           projects = Project.all.select {|p| p.public }
