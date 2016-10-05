@@ -1,8 +1,7 @@
 module Api
   module V1
     class ProjectsController < ApplicationController
-
-     before_action: authenticate_request!
+     before_action :public?
 
       def index
         if params[:public]
@@ -12,6 +11,13 @@ module Api
           render json: Project.includes(:users,:managers), include: ['users' , 'managers'] , each_serializer: Projects::IndexSerializer
         end
       #  render json: Project.includes(:users,:managers), include: ['users' , 'managers']
+      end
+
+      private
+      # Skips authentication if user wants to see public projects.
+      def public?
+        return if params[:public]
+        authenticate_request!
       end
 
     end

@@ -1,7 +1,6 @@
 class AuthenticationController < ApplicationController
 
  def authenticate_user
-   byebug
     user = User.find_by(username: params[:username])
     if user.authenticate(params[:password])
       render json: payload(user)
