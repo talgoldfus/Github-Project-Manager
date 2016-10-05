@@ -12,12 +12,12 @@ project2 = Project.create(repo:'http://', title:'FeedMe')
 project3 = Project.create(repo:'http://', title:'Artist Base' ,public:false)
 
 
-tal =  User.create(name:'Tal',username:'tal@tal.com' ,profile_picture:'http')
-tom =  User.create(name:'Tom',username:'Tom@Tom.com', profile_picture:'http')
-tod =  User.create(name:'Tod',username:'Tod@Tod.com' ,profile_picture:'http')
-james =  User.create(name:'James',username:'James@James.com' ,profile_picture:'http')
-john =  User.create(name:'John',username:'John@John.com' ,profile_picture:'http')
-kevin =  User.create(name:'Kevin',username:'Kevin@Kevin.com' ,profile_picture:'http')
+tal =  User.create(name:"Tal",username:"talgoldfus",password:"test",password_confirmation:"test")
+tom =  User.create(name:'Tom',username:'Tom@Tom.com',password:"test",password_confirmation:"test",profile_picture:'http')
+tod =  User.create(name:'Tod',username:'Tod@Tod.com',password:"test",password_confirmation:"test",profile_picture:'http')
+james =  User.create(name:'James',username:'James@James.com',password:"test",password_confirmation:"test" ,profile_picture:'http')
+john =  User.create(name:'John',username:'John@John.com',password:"test",password_confirmation:"test" ,profile_picture:'http')
+kevin =  User.create(name:'Kevin',username:'Kevin@Kevin.com',password:"test",password_confirmation:"test" ,profile_picture:'http')
 
 project1.managers =[tod,kevin]
 project1.users = [james,tal,john]
