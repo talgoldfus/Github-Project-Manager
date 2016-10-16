@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      get 'github-callback' => 'github#index'
       resources :users
       resources :projects
       resources :taks
