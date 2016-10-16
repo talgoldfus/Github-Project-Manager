@@ -35,7 +35,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 
 
 
-const SignInForm = props => {
+const SignupForm = props => {
   const {  handleSubmit,pristine,submitting,dispatch } = props
   return (
     <form onSubmit={handleSubmit(info=>signupAction(info,dispatch))}>
@@ -60,11 +60,11 @@ const SignInForm = props => {
 
 
 const form = reduxForm({
-  form: 'SignInForm',
+  form: 'SignupForm',
   validate,
   asyncValidate,
   asyncBlurFields: [ 'username' ]
 }
-)(SignInForm)
+)(SignupForm)
 
 export default form;

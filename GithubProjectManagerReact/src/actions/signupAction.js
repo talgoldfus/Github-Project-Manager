@@ -11,7 +11,7 @@ function signupUser(formProps,dispatch) {
               }
      }
    ).then((response)=>{
-      dispatch(loginUser(formProps))
+      loginUser(formProps,dispatch)
    })
  }
 
