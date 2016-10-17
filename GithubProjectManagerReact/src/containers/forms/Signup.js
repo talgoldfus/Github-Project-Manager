@@ -33,8 +33,6 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
   />
 )
 
-
-
 const SignupForm = props => {
   const {  handleSubmit,pristine,submitting,dispatch } = props
   return (
@@ -57,7 +55,6 @@ const SignupForm = props => {
     </form>
   )
 }
-
 
 const form = reduxForm({
   form: 'SignupForm',

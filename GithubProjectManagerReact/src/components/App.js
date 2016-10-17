@@ -1,25 +1,26 @@
-import React from 'react';
-import Layout from './Layout'
-import SignupForm from  '../containers/forms/Signup'
-import LogInForm from  '../containers/forms/LogIn'
-
+import React, {Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import NavBarMenu from './NavBarMenu'
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 
-const App = ()=> {
+class App extends Component {
+
+componentWillMount(){
+  
+}
+
+render(){
   return (
 
       <MuiThemeProvider muiTheme={getMuiTheme()} >
         <div className="App">
               <NavBarMenu/>
-
-              <SignupForm />
-              <LogInForm />
+              {this.props.children}
         </div>
       </ MuiThemeProvider>
     )
+}
 }
 
 export default App;

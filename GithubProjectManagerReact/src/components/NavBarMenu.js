@@ -1,35 +1,30 @@
-import React from 'react';
+import React,{Component} from 'react';
+import {connect} from 'react-redux'
 import AppBar from 'material-ui/AppBar';
-import { Link } from 'react-router'
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import ActionHome from 'material-ui/svg-icons/action/home';
-import MenuItem from 'material-ui/MenuItem';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import LoginButton from './LoginButton'
+import LoggedButton from './LoggedButton'
 
-const NavBarMenu = () => (
-  <AppBar
-    title="Github Project Manager"
-    iconElementLeft={
-      <Link to="/test" >
-      <IconButton>
-        <ActionHome/>
-      </IconButton>
-      </Link >}
-    iconElementRight={
-      <IconMenu
-        iconButtonElement={
-          <IconButton><MoreVertIcon /></IconButton>
-        }
-        targetOrigin={{horizontal: 'right', vertical: 'top'}}
-        anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-      >
-        <MenuItem primaryText="Home" onTouchTap={null} />
-        <MenuItem primaryText="Sign In" onTouchTap={null} />
-        <MenuItem primaryText="Sign out" onTouchTap={null} />
-      </IconMenu>
-    }
-  />
-);
+class NavBarMenu extends Component {
 
-export default NavBarMenu
+  render() {
+    return (
+      <div>
+        <AppBar
+          title="Github Project Manager"
+          iconElementLeft={<IconButton><NavigationClose /></IconButton>}
+          iconElementRight={this.props.logged ? <LoggedButton /> : <LoginButton />}
+        />
+      </div>
+    );
+  }
+}
+
+function mapStateToProps(state ) {
+    return {logged: state.authentication.authenticated}
+}
+
+const NavBarMenuContainer = connect(mapStateToProps)(NavBarMenu)
+
+export default NavBarMenuContainer

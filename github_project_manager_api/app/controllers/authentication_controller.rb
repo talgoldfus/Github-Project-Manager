@@ -1,13 +1,26 @@
 class AuthenticationController < ApplicationController
 
  def authenticate_user
-
     user = User.find_by(username: params[:username])
     if user.authenticate(params[:password])
       render json: payload(user)
     else
       render json: {errors: ['Invalid Username/Password']}, status: :unauthorized
     end
+ end
+
+ def logout
+   render json: {logout: 'Successful'}
+ end
+
+ def auth_token
+   auth_token= JsonWebToken.decode(request.headers['Authorization'].split(' ').last)
+   @current_user = User.find(auth_token[:user_id])
+   if @current_user
+     render json: {status: 'Valid' , user: @current_user.id }
+   else
+     render json: {status: 'Expired' }
+   end
  end
 
   private
