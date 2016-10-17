@@ -7,8 +7,7 @@ class ApplicationController < ActionController::Base
       render json: { errors: ['Not Authenticated'] }, status: :unauthorized
       return
     end
-    @current_user = User.find(auth_token[:user_id])
-    byebug
+    @current_user = User.find(auth_token[:user_id])    
   rescue JWT::VerificationError, JWT::DecodeError
     render json: { errors: ['Not Authenticated'] }, status: :unauthorized
   end

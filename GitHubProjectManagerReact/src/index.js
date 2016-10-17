@@ -8,12 +8,13 @@ import reducer from './reducers/index'
 import { Router,browserHistory } from 'react-router'
 import Routes from './routes'
 import injectTapEventPlugin from "react-tap-event-plugin";
+import {enableBatching} from 'redux-batched-actions'; 
 
 
 injectTapEventPlugin();
 
 let createStoreWithMiddleware = applyMiddleware(reduxThunk, ReduxPromise)(createStore)
-let store = createStoreWithMiddleware(reducer ,window.devToolsExtension ? window.devToolsExtension() : f => f)
+let store = createStoreWithMiddleware(enableBatching(reducer) ,window.devToolsExtension ? window.devToolsExtension() : f => f)
 
 
 ReactDOM.render(

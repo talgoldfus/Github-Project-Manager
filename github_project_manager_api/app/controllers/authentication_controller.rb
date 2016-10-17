@@ -11,13 +11,15 @@ class AuthenticationController < ApplicationController
 
  def logout
    render json: {logout: 'Successful'}
+   @current_user = nil
+   reset_session
  end
 
  def auth_token
    auth_token= JsonWebToken.decode(request.headers['Authorization'].split(' ').last)
-   @current_user = User.find(auth_token[:user_id])
-   if @current_user
-     render json: {status: 'Valid' , user: @current_user.id }
+   current_user = User.find(auth_token[:user_id])
+   if current_user
+     render json: {status: 'Valid' , user: current_user.id }
    else
      render json: {status: 'Expired' }
    end
@@ -27,9 +29,10 @@ class AuthenticationController < ApplicationController
 
   def payload(user)
     return nil unless user and user.id
+    connected = user.gh_token ? true : false
     {
       auth_token: JsonWebToken.encode({user_id: user.id}),
-      user: {id: user.id, username: user.username}
+      user: {id: user.id, username: user.username ,connected: connected}
     }
   end
 
