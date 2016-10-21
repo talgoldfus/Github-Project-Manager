@@ -10,7 +10,6 @@ const connectGithub = (ghCode)=>{
    })
     .then((response)=>{
       if (response.data.connected === "True"){
-        debugger
         browserHistory.push('/')
         return {type: 'GH_CONNECTED', payload: true}
       }else {

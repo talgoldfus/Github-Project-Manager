@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { batchActions } from 'redux-batched-actions';
 
 const logoutAction = () => {
   return axios({
@@ -9,7 +10,9 @@ const logoutAction = () => {
     }
   ).then((response)=>{
           localStorage.clear()
-          return {type: 'LOG_IN', payload: false}
+          return batchActions(
+            [{type: 'LOG_IN', payload: false},
+            {type: 'GH_CONNECTED', payload: false}])
     })
   }
 

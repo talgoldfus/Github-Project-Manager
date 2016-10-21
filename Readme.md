@@ -2,7 +2,7 @@ Git Hub - Project Manager
 
 Stack:
 
-Rails 5 API
+Rails 5 API + JWT Authentication
 React.js
 Redux.js
 Material U.I
