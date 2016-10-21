@@ -4,11 +4,11 @@ import ConnectGithubButton from '../components/ConnectGithubButton'
 
 
 const GithubButtonContainer = (props)=> {
-  return  props.loggedIn && !props.connectedToGithub  ? <ConnectGithubButton />  : null 
+  return  props.loggedIn && !props.connectedToGithub  ? <ConnectGithubButton />  : null
 }
 
 function mapStateToProps(state){
-    return {connectedToGithub: state.github.connected,
+    return {connectedToGithub: state.authentication.connected,
             loggedIn:state.authentication.authenticated}
 }
 

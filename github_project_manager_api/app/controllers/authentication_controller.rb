@@ -19,7 +19,11 @@ class AuthenticationController < ApplicationController
    auth_token= JsonWebToken.decode(request.headers['Authorization'].split(' ').last)
    current_user = User.find(auth_token[:user_id])
    if current_user
-     render json: {status: 'Valid' , user: current_user.id }
+     render json: {
+       status: 'Valid' ,
+       user: current_user.id ,
+       connected: current_user.gh_token ? true : false
+     }
    else
      render json: {status: 'Expired' }
    end

@@ -11,7 +11,11 @@ const loggedInWithToken = ()=>{
       }
     )
     .then((response)=>{
-      return response.data.status === 'Valid' ? true : false
+
+      return {
+        authenticated: response.data.status === 'Valid' ? true : false ,
+        connected: response.data.connected ,
+        error: ''}
       })
     .catch( error => {return false} )
   }else{
@@ -19,13 +23,14 @@ const loggedInWithToken = ()=>{
   }
 }
 
-const authReducer =  function(state = {authenticated: loggedInWithToken() , error: ''}, action){
-
+const authReducer =  function(state = loggedInWithToken(), action){
   switch(action.type){
     case 'LOG_IN':
-      return {authenticated: action.payload, error: ''};
+      return {...state, authenticated: action.payload }
     case 'AUTH_ERROR':
       return { ...state, error: action.payload };
+    case 'GH_CONNECTED':
+        return {...state,connected: action.payload};
     default:
       return state;
   }

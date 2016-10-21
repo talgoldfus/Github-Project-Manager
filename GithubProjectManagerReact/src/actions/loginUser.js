@@ -11,6 +11,8 @@ export default function loginUser(formProps,dispatch) {
   ).then((response)=>{
       if (response.data.auth_token){
         localStorage.setItem('token', response.data.auth_token)
+        localStorage.setItem('username', response.data.user.username)
+
         browserHistory.push('/')
         dispatch(batchActions(
           [{type: 'LOG_IN', payload: true},
