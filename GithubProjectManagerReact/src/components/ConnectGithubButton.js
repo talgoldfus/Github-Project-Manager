@@ -9,7 +9,7 @@ class ConnectGithubButton extends Component {
                label="Connect to Github"
                href="https://github.com/login/oauth/authorize?scope=user%20public_repo&client_id=da38e23dc07bda458819"
                secondary={true}
-               icon={<FontIcon className="muidocs-icon-custom-github" />}
+               icon={<FontIcon className="fa fa-github" />}
             />
           )
   }

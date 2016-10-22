@@ -8,14 +8,20 @@ import reducer from './reducers/index'
 import { Router,browserHistory } from 'react-router'
 import Routes from './routes'
 import injectTapEventPlugin from "react-tap-event-plugin";
-import {enableBatching} from 'redux-batched-actions'; 
+import {enableBatching} from 'redux-batched-actions';
+import loggedInWithToken from './helpers/pressistAuth'
 
 
-injectTapEventPlugin();
+loggedInWithToken().then((state)=>{
 
-let createStoreWithMiddleware = applyMiddleware(reduxThunk, ReduxPromise)(createStore)
-let store = createStoreWithMiddleware(enableBatching(reducer) ,window.devToolsExtension ? window.devToolsExtension() : f => f)
+  injectTapEventPlugin();
 
+  let createStoreWithMiddleware = applyMiddleware(reduxThunk, ReduxPromise)(createStore)
+  let store = createStoreWithMiddleware(
+    enableBatching(reducer),
+    {authentication: state},
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  )
 
 ReactDOM.render(
 
@@ -24,3 +30,5 @@ ReactDOM.render(
   </Provider>,
  document.getElementById('root')
 );
+
+})

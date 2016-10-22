@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+@import "./assets/css/fonts.css";
+@import "./assets/css/font-awesome.min.css";
+
 
 body {
   margin: 0;

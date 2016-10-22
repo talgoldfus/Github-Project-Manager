@@ -22,7 +22,7 @@ class NavBarMenu extends Component {
 }
 
 function mapStateToProps(state ) {
-    return {logged: state.authentication.authenticated}
+    return {logged: state.authentication.authenticated }
 }
 
 const NavBarMenuContainer = connect(mapStateToProps)(NavBarMenu)
