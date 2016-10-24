@@ -20,13 +20,16 @@ module Api
           end
       end
 
-       def action
-          if @current_user.gh_token
-            puts "Do some action"
-          else
-           redirect_to
-          end
-       end
+     def show
+
+      #  response = client.all_repositories(nil,{type: 'owner'})
+       byebug
+       action=  params[:id]
+       action= params.action
+       client = Octokit::Client.new(:access_token => @current_user.gh_token)
+       user = client.user_code
+
+     end
 
     end
   end

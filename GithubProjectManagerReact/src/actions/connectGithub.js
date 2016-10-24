@@ -18,7 +18,7 @@ const connectGithub = (ghCode)=>{
       }
     })
     .catch( error => {
-      browserHistory.push('/')
+      browserHistory.push('/connected')
       console.log(error)
       return {type: 'GH_CONNECTED', payload: false}
     })
