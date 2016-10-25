@@ -21,14 +21,9 @@ module Api
       end
 
      def show
-
-      #  response = client.all_repositories(nil,{type: 'owner'})
-       byebug
-       action=  params[:id]
-       action= params.action
-       client = Octokit::Client.new(:access_token => @current_user.gh_token)
-       user = client.user_code
-
+       action = GithubActions.new(@current_user)
+       result = action.get_results(params[:id],params[:q])
+       render json: result
      end
 
     end

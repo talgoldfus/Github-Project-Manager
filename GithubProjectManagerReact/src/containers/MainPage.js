@@ -1,22 +1,19 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux'
-import getOwnersRepos from '../actions/getOwnersRepos'
+import SearchGithub from './forms/SearchGithub.js'
+
 
 class MainPage extends Component {
 
   componentWillMount(){
-    this.props.getOwnersRepos()
   }
 
   render(){
     return (
             <div>
-              <p>Main Page</p>
+              <SearchGithub/>
             </div>
           )
   }
 }
 
-
-const MainPageContainer = connect(null,{getOwnersRepos})(MainPage)
-export default MainPageContainer
+export default MainPage
