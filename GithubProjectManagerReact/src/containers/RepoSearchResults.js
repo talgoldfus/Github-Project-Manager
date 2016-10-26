@@ -4,6 +4,7 @@ import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
+import FontIcon from 'material-ui/FontIcon';
 import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
 
 class RepoSearchResults extends Component {
@@ -13,7 +14,7 @@ class RepoSearchResults extends Component {
       <div>
         <Divider inset={true} />
         <ListItem
-          leftAvatar={<Avatar src="" />}
+          leftAvatar={<FontIcon className="fa fa-github" />}
           primaryText={result.name}
           secondaryText={
             <p>
