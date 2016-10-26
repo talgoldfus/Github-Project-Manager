@@ -26,9 +26,12 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 
 
 const SearchGithub = props => {
-  const { handleSubmit,pristine,submitting } = props
+  const { handleSubmit,pristine,submitting,dispatch } = props
   return (
-    <form onSubmit={handleSubmit(input=>grabFromGithub('search_owner_repos',input.search))}>
+    <form onSubmit={handleSubmit(input => {
+        dispatch(grabFromGithub('search_owner_repos',input.search))
+      })
+    }>
       <div>
         <Field name="search" component={renderTextField} label="search"/>
       </div>

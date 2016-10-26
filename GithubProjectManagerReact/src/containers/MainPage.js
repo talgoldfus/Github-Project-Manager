@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import SearchGithub from './forms/SearchGithub.js'
+import SearchGithub from './forms/SearchGithub'
+import RepoSearchResults from './RepoSearchResults'
 
 
 class MainPage extends Component {
@@ -11,6 +12,7 @@ class MainPage extends Component {
     return (
             <div>
               <SearchGithub/>
+              <RepoSearchResults />
             </div>
           )
   }
