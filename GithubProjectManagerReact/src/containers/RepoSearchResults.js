@@ -1,21 +1,22 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
-import {List, ListItem} from 'material-ui/List';
-import Divider from 'material-ui/Divider';
+import {ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
-import Avatar from 'material-ui/Avatar';
 import FontIcon from 'material-ui/FontIcon';
-import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
+import { darkBlack} from 'material-ui/styles/colors';
+import SelectableRepoList from './SelectableRepoList'
+
 
 class RepoSearchResults extends Component {
 
   results (result){
     return (
-      <div>
-        <Divider inset={true} />
+
         <ListItem
           leftAvatar={<FontIcon className="fa fa-github" />}
           primaryText={result.name}
+          key={result.id}
+          value={result.id}
           secondaryText={
             <p>
               <span style={{color: darkBlack}}>{result.language}</span> --
@@ -24,7 +25,6 @@ class RepoSearchResults extends Component {
           }
           secondaryTextLines={2}
         />
-      </div>
     )
   }
 
@@ -36,10 +36,10 @@ class RepoSearchResults extends Component {
 
     return (
             <div>
-              <List>
+              <SelectableRepoList defaultValue={1}>
                 <Subheader>Search Results</Subheader>
                 {results}
-              </List>
+              </SelectableRepoList>
             </div>
           )
   }
