@@ -3,7 +3,7 @@ import { SubmissionError } from 'redux-form'
 import { browserHistory } from 'react-router'
 import { batchActions } from 'redux-batched-actions';
 
-export default function loginUser(formProps,dispatch) {
+export default function loginUserAction(formProps,dispatch) {
  return axios.post("http://localhost:3000/auth_user",{
       username: `${formProps.username}`,
       password: `${formProps.password}`

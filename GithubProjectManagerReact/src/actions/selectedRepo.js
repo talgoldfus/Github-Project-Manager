@@ -1,9 +1,9 @@
-function selectedRepo(id) {
+function selectedRepoAction(id) {
   return {
-    type:'CURRENTLY_SELECTED',
+    type:'CURRENTLY_SELECTED_REPO',
     payload:id
   }
  }
 
 
-export default selectedRepo
+export default selectedRepoAction

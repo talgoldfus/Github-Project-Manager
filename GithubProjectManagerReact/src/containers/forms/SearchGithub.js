@@ -2,6 +2,7 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import TextField from 'material-ui/TextField'
 import grabFromGithub from '../../actions/grabFromGithub'
+import completedStep from '../../actions/completedStep'
 
 const validate = values => {
   const errors = {}
@@ -26,17 +27,20 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 
 
 const SearchGithub = props => {
-  const { handleSubmit,pristine,submitting,dispatch } = props
-  return (
-    <form onSubmit={handleSubmit(input => {
+
+  const { handleSubmit,submitting,dispatch } = props
+
+  let submitSearch = function (input){
         dispatch(grabFromGithub('search_owner_repos',input.search))
+      .then(()=>{
+        dispatch(completedStep(true))
       })
-    }>
+    }
+
+  return (
+    <form onSubmit={handleSubmit(submitSearch)}>
       <div>
         <Field name="search" component={renderTextField} label="search"/>
-      </div>
-      <div>
-        <button type="submit" disabled={pristine || submitting}>Search</button>
       </div>
     </form>
   )

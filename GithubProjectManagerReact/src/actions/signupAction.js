@@ -2,7 +2,7 @@ import axios from 'axios'
 import loginUser from './loginUser'
 
 
-function signupUser(formProps,dispatch) {
+function signupUserAction(formProps,dispatch) {
    axios.post('http://localhost:3000/api/v1/users',{
         signup:{name: formProps.name,
                 username: formProps.username,
@@ -16,4 +16,4 @@ function signupUser(formProps,dispatch) {
  }
 
 
-export default signupUser
+export default signupUserAction

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { batchActions } from 'redux-batched-actions';
 
-const logoutAction = () => {
+const logoutActionAction = () => {
   return axios({
     url: "http://localhost:3000/logout",
     method:'post',
@@ -17,4 +17,4 @@ const logoutAction = () => {
   }
 
 
-export default logoutAction
+export default logoutActionAction

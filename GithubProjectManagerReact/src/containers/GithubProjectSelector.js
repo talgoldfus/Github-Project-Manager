@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import {
   Step,
   Stepper,
@@ -10,40 +11,46 @@ import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import ConnectGithubButton from '../containers/ConnectGithubButtonContainer';
 import SearchGithub from './forms/SearchGithub'
 import RepoSearchResults from './RepoSearchResults'
+import completedStep from '../actions/completedStep'
+
 
 class GithubProjectSelector extends React.Component {
 
-  state = {
-    loading: false,
-    finished: false,
-    stepIndex: 0,
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+        loading: false,
+        finished: false,
+        stepIndex: 0,
+      };
+  }
 
-  dummyAsync = (cb) => {
-    this.setState({loading: true}, () => {
-      this.asyncTimer = setTimeout(cb, 500);
-    });
-  };
+  // shouldComponentUpdate(nextProps, nextState){
+  //   debugger
+  //   if (!this.state.stepStarted &&  this.state.stepIndex < nextState.stepIndex ){
+  //     debugger
+  //     this.setState({stepStarted:true})
+  //
+  //   }
+  //   return true
+  // }
 
   handleNext = () => {
     const {stepIndex} = this.state;
-    if (!this.state.loading) {
-      this.dummyAsync(() => this.setState({
+    this.setState({
         loading: false,
         stepIndex: stepIndex + 1,
         finished: stepIndex >= 2,
-      }));
-    }
+      })
+    this.props.completedStep(false)
   };
 
   handlePrev = () => {
     const {stepIndex} = this.state;
-    if (!this.state.loading) {
-      this.dummyAsync(() => this.setState({
+    this.setState({
         loading: false,
         stepIndex: stepIndex - 1,
-      }));
-    }
+      })
   };
 
   getStepContent(stepIndex) {
@@ -58,10 +65,11 @@ class GithubProjectSelector extends React.Component {
           </div>
         );
       case 1:
+
         return (
           <div>
             <p>Search for your Github repositories</p>
-            <SearchGithub />
+            <SearchGithub/>
           </div>
         );
       case 2:
@@ -93,6 +101,7 @@ class GithubProjectSelector extends React.Component {
           <RaisedButton
             label={stepIndex === 2 ? 'Finish' : 'Next'}
             primary={true}
+            disabled={!this.props.stepCompleted}
             onTouchTap={this.handleNext}
           />
         </div>
@@ -124,4 +133,9 @@ class GithubProjectSelector extends React.Component {
   }
 }
 
-export default GithubProjectSelector;
+function mapStateToProps(state){
+    return {stepCompleted: state.github.stepCompleted}
+}
+
+const GithubProjectSelectorConnector = connect(mapStateToProps,{completedStep})(GithubProjectSelector)
+export default GithubProjectSelectorConnector

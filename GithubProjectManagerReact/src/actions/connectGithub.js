@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { browserHistory } from 'react-router'
 
-const connectGithub = (ghCode)=>{
+const connectGithubAction = (ghCode)=>{
    return axios({
       url: "http://localhost:3000/api/v1/github-callback",
       method:'post',
@@ -24,4 +24,4 @@ const connectGithub = (ghCode)=>{
     })
 }
 
-export default connectGithub
+export default connectGithubAction
