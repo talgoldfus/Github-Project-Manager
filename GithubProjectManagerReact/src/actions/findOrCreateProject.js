@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { batchActions } from 'redux-batched-actions';
 import { browserHistory } from 'react-router'
 
 const findOrCreateProject = (repoId,name) => {
@@ -13,10 +12,7 @@ const findOrCreateProject = (repoId,name) => {
           }
     }
   ).then((response)=>{
-          browserHistory.push('/')
-          return batchActions(
-            [{type: '', payload: false},
-            {type: '', payload: false}])
+      browserHistory.push(`projects/${response.data.project_id}`)
     })
   }
 

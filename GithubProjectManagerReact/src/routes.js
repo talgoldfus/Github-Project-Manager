@@ -5,6 +5,7 @@ import SignupForm from  './containers/forms/Signup'
 import LogInForm from  './containers/forms/LogIn'
 import GithubCallback from './connectors/GithubCallback'
 import GithubProjectSelector from './containers/GithubProjectSelector'
+import ProjectPage from './containers/ProjectPage'
 
 
 export default (
@@ -13,6 +14,7 @@ export default (
       <Route path="signin" component={LogInForm} />
       <Route path="signup" component={SignupForm} />
       <Route path="connected" component={GithubProjectSelector} />
+      <Route path="projects/:id" component={ProjectPage} />
     </Route >
     <Route path="github-callback" component={GithubCallback} />
   </div>

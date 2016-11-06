@@ -31,7 +31,7 @@ class GithubProjectSelector extends React.Component {
       let repo = this.props.repoSearchResults.find(
         repo => repo.id === this.props.currentRepo
       )
-      this.props.findOrCreateProject(repo.id,repo.name)
+      findOrCreateProject(repo.id,repo.name)
     }
     else{
       this.setState({
@@ -139,5 +139,5 @@ function mapStateToProps(state){
     }
 }
 
-const GithubProjectSelectorConnector = connect(mapStateToProps,{completedStep,findOrCreateProject})(GithubProjectSelector)
+const GithubProjectSelectorConnector = connect(mapStateToProps,{completedStep})(GithubProjectSelector)
 export default GithubProjectSelectorConnector

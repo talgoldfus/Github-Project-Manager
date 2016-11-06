@@ -14,12 +14,11 @@ module Api
       end
 
       def create
-
-        project = Project.find_by(repo_id: params[:project].id)
+        project = Project.find_by(repo_id: params[:project][:id])
         if !project
-          Project.create(repo_id: params[:project].id, title: params[:project].title)
+          project = Project.create(repo_id: params[:project][:id], title: params[:project][:title])
         end
-        byebug
+        render json: {project_id: project.id}
       end
 
     end
