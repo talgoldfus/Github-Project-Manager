@@ -2,12 +2,15 @@ import axios from 'axios'
 import { batchActions } from 'redux-batched-actions';
 import { browserHistory } from 'react-router'
 
-const createProjectAction = (porjectId) => {
+const findOrCreateProject = (repoId,name) => {
   return axios({
     url: "http://localhost:3000/api/v1/projects",
     method:'post',
     headers: { Authorization: localStorage.getItem('token')},
-    data: {project: porjectId }
+    data: {
+            id: repoId,
+            title: name
+          }
     }
   ).then((response)=>{
           browserHistory.push('/')
@@ -18,4 +21,4 @@ const createProjectAction = (porjectId) => {
   }
 
 
-export default createProjectAction
+export default findOrCreateProject

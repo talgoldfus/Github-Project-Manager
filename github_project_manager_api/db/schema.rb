@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20161014020613) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string   "repo"
+    t.integer  "repo_id"
     t.string   "title"
     t.boolean  "public",     default: true
     t.datetime "created_at",                null: false

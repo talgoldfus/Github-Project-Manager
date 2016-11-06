@@ -7,9 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-project1 = Project.create(repo:'http://', title:'Fizzbuzz')
-project2 = Project.create(repo:'http://', title:'FeedMe')
-project3 = Project.create(repo:'http://', title:'Artist Base' ,public:false)
+project1 = Project.create(repo_id:nil, title:'Fizzbuzz')
+project2 = Project.create(repo_id:nil, title:'FeedMe')
+project3 = Project.create(repo_id:nil, title:'Artist Base' ,public:false)
 
 
 tal =  User.create(name:"Tal",username:"talgoldfus",password:"test",password_confirmation:"test")

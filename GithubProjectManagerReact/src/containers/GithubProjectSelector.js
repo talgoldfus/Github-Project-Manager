@@ -12,7 +12,7 @@ import ConnectGithubButton from '../containers/ConnectGithubButtonContainer';
 import SearchGithub from './forms/SearchGithub'
 import RepoSearchResults from './RepoSearchResults'
 import completedStep from '../actions/completedStep'
-
+import findOrCreateProject from '../actions/findOrCreateProject'
 
 class GithubProjectSelector extends React.Component {
 
@@ -25,24 +25,22 @@ class GithubProjectSelector extends React.Component {
       };
   }
 
-  // shouldComponentUpdate(nextProps, nextState){
-  //   debugger
-  //   if (!this.state.stepStarted &&  this.state.stepIndex < nextState.stepIndex ){
-  //     debugger
-  //     this.setState({stepStarted:true})
-  //
-  //   }
-  //   return true
-  // }
-
   handleNext = () => {
     const {stepIndex} = this.state;
-    this.setState({
-        loading: false,
-        stepIndex: stepIndex + 1,
-        finished: stepIndex >= 2,
-      })
-    this.props.completedStep(false)
+    if(stepIndex === 2){
+      let repo = this.props.repoSearchResults.find(
+        repo => repo.id === this.props.currentRepo
+      )
+      this.props.findOrCreateProject(repo.id,repo.name)
+    }
+    else{
+      this.setState({
+          loading: false,
+          stepIndex: stepIndex + 1,
+          finished: stepIndex >= 2,
+        })
+      this.props.completedStep(false)
+    }
   };
 
   handlePrev = () => {
@@ -69,7 +67,7 @@ class GithubProjectSelector extends React.Component {
         return (
           <div>
             <p>Search for your Github repositories</p>
-            <SearchGithub/>
+            <SearchGithub nextStep={this.handleNext}/>
           </div>
         );
       case 2:
@@ -134,8 +132,12 @@ class GithubProjectSelector extends React.Component {
 }
 
 function mapStateToProps(state){
-    return {stepCompleted: state.github.stepCompleted}
+    return {
+      stepCompleted: state.github.stepCompleted,
+      currentRepo: state.github.currentRepo,
+      repoSearchResults: state.github.repoSearchResults
+    }
 }
 
-const GithubProjectSelectorConnector = connect(mapStateToProps,{completedStep})(GithubProjectSelector)
+const GithubProjectSelectorConnector = connect(mapStateToProps,{completedStep,findOrCreateProject})(GithubProjectSelector)
 export default GithubProjectSelectorConnector

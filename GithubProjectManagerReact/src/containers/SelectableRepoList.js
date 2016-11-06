@@ -2,6 +2,7 @@ import React, {Component,PropTypes} from 'react';
 import {connect} from 'react-redux'
 import {List,MakeSelectable} from 'material-ui/List';
 import selectedRepo from '../actions/selectedRepo'
+import completedStep from '../actions/completedStep'
 
 function wrapState(ComposedComponent) {
   return class SelectableList extends Component {
@@ -17,11 +18,11 @@ function wrapState(ComposedComponent) {
     }
 
     handleRequestChange = (event, index) => {
-      debugger
       this.props.selectedRepo(index)
       this.setState({
         selectedIndex: index,
       });
+      this.props.completedStep(true)
     };
 
     render() {
@@ -38,6 +39,6 @@ function wrapState(ComposedComponent) {
 }
 const SelectableList = wrapState(MakeSelectable(List))
 
-const SelectableListContainer = connect(null,{selectedRepo})(SelectableList)
+const SelectableListContainer = connect(null,{selectedRepo,completedStep})(SelectableList)
 
 export default SelectableListContainer

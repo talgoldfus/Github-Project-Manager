@@ -28,12 +28,18 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 
 const SearchGithub = props => {
 
-  const { handleSubmit,submitting,dispatch } = props
+  const { handleSubmit,submitting,pristine,dispatch } = props
 
   let submitSearch = function (input){
         dispatch(grabFromGithub('search_owner_repos',input.search))
-      .then(()=>{
-        dispatch(completedStep(true))
+      .then((response)=>{
+        if(Array.isArray(response.payload)){
+          dispatch(completedStep(true))
+          props.nextStep()
+        }
+        else{
+         alert("No matching results. Please try again.")
+        }
       })
     }
 
@@ -41,6 +47,9 @@ const SearchGithub = props => {
     <form onSubmit={handleSubmit(submitSearch)}>
       <div>
         <Field name="search" component={renderTextField} label="search"/>
+      </div>
+      <div>
+        <button type="submit" disabled={pristine || submitting}>Search</button>
       </div>
     </form>
   )
