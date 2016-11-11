@@ -1,44 +1,25 @@
-import React, {Component,PropTypes} from 'react';
+import React from 'react';
 import {connect} from 'react-redux'
-import {List,MakeSelectable} from 'material-ui/List';
+import SelectableList from './SelectableList';
 import selectedRepo from '../actions/selectedRepo'
 import completedStep from '../actions/completedStep'
 
-function wrapState(ComposedComponent) {
-  return class SelectableList extends Component {
-    static propTypes = {
-      children: PropTypes.node.isRequired,
-      defaultValue: PropTypes.number.isRequired,
-    };
+const SelectableRepoList =(props)=>{
 
-    componentWillMount() {
-      this.setState({
-        selectedIndex: this.props.defaultValue,
-      });
-    }
+    let startFunction = props.selectedRepo
+    let endFunction = props.completedStep.bind(null,true)
+    return (
+            <SelectableList
+              handleChangeStartWithIndex={startFunction}
+              handleChangeEnd={endFunction}
+              defaultValue={props.defaultValue}
+            >
+              {props.children}
+            </SelectableList>
+    )
+  }
 
-    handleRequestChange = (event, index) => {
-      this.props.selectedRepo(index)
-      this.setState({
-        selectedIndex: index,
-      });
-      this.props.completedStep(true)
-    };
 
-    render() {
-      return (
-        <ComposedComponent
-          value={this.state.selectedIndex}
-          onChange={this.handleRequestChange.bind(this)}
-        >
-          {this.props.children}
-        </ComposedComponent>
-      );
-    }
-  };
-}
-const SelectableList = wrapState(MakeSelectable(List))
+const SelectableRepoListContainer = connect(null,{selectedRepo,completedStep})(SelectableRepoList)
 
-const SelectableListContainer = connect(null,{selectedRepo,completedStep})(SelectableList)
-
-export default SelectableListContainer
+export default SelectableRepoListContainer

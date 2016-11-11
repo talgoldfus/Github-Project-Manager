@@ -19,7 +19,7 @@ export default class AsigneeList extends React.Component {
 
   constructor(props){
     super(props)
-    this.renderAsignees = renderAsignees.bind(this)
+    this.renderAsignees.bind(this)
   }
 
   handleTouchTap(username) {
@@ -30,7 +30,6 @@ export default class AsigneeList extends React.Component {
     alert(`You want to remove ${username} from this task ?`);
   }
 
-
   renderAsignees(){
     let asignees = this.props.asignees.map((asignee)=>{
       return(
@@ -39,7 +38,7 @@ export default class AsigneeList extends React.Component {
           onTouchTap={this.handleTouchTap(asignee.username)}
           style={styles.chip}
         >
-          <Avatar src={asignee.profileImage}} />
+          <Avatar src={asignee.profileImage}/>
           asignee.username
         </Chip>
       )
@@ -47,11 +46,12 @@ export default class AsigneeList extends React.Component {
 
     return asignees
   }
+
   render() {
     return (
       <div style={styles.wrapper}>
         { this.renderAsignees()}
       </div>
-    );
+    )
   }
 }
