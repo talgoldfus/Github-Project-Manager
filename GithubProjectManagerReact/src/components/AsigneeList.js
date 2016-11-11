@@ -34,8 +34,9 @@ export default class AsigneeList extends React.Component {
     let asignees = this.props.asignees.map((asignee)=>{
       return(
         <Chip
-          onRequestDelete={this.handleRequestRemove(asignee.username)}
-          onTouchTap={this.handleTouchTap(asignee.username)}
+          key={asignee.id}
+          onRequestDelete={()=>this.handleRequestRemove(asignee.username)}
+          onTouchTap={()=>this.handleTouchTap(asignee.username)}
           style={styles.chip}
         >
           <Avatar src={asignee.profileImage}/>
@@ -43,15 +44,15 @@ export default class AsigneeList extends React.Component {
         </Chip>
       )
     })
-
     return asignees
   }
 
   render() {
-    return (
-      <div style={styles.wrapper}>
-        { this.renderAsignees()}
-      </div>
-    )
+       const asignees = this.renderAsignees()
+       return (
+         <div style={styles.wrapper}>
+            {asignees}
+        </div>
+      )
   }
 }

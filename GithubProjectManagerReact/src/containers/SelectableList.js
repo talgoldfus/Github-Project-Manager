@@ -22,7 +22,7 @@ function wrapState(ComposedComponent) {
       this.setState({
         selectedIndex: index,
       });
-      handleChangeEnd()
+      handleChangeEnd ? handleChangeEnd() : null
     };
 
     render() {
