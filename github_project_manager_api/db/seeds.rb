@@ -29,7 +29,7 @@ project3.managers =[tal,james]
 project3.users = [tom,kevin,john,tod]
 
 3.times do |i|
-  Task.create(priority:1 , project_id: i+1 ,content:'Create Database Relations',status: "pending")
-  Task.create(priority:2 , project_id: i+1 ,content:'Create Model Methods',status: "pending")
-  Task.create(priority:5 , project_id: i+1 ,content:'Create logo',status: "pending")
+  Task.create(priority:1 , project_id: i+1 ,title:'title 1' ,description:'Create Database Relations',status: "open")
+  Task.create(priority:2 , project_id: i+1 ,title:'title 2' ,description:'Create Model Methods',status: "open")
+  Task.create(priority:5 , project_id: i+1 ,title:'title 3' ,description:'Create logo',status: "open")
 end

@@ -13,6 +13,12 @@ module Api
       #  render json: Project.includes(:users,:managers), include: ['users' , 'managers']
       end
 
+      def show
+        byebug
+        project = Project.find_by(repo_id: params[:project][:id])
+        render json: project
+      end
+
       def create
         project = Project.find_by(repo_id: params[:project][:id])
         if !project
@@ -20,6 +26,8 @@ module Api
         end
         render json: {project_id: project.id}
       end
+
+
 
     end
   end

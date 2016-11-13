@@ -5,7 +5,6 @@ module Api
     before_action :authenticate_request!
 
       def create
-        byebug
           if params[:code]
             user_code = params[:code]
             response = HTTParty.post('https://github.com/login/oauth/access_token',:query =>

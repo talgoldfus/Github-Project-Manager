@@ -3,8 +3,9 @@ class CreateTasks < ActiveRecord::Migration[5.0]
     create_table :tasks do |t|
       t.integer :priority
       t.integer :project_id
-      t.string :status  , :default => 'Pending'
-
+      t.string :title
+      t.text :description
+      t.string :status  , :default => 'open'
       t.timestamps
     end
   end

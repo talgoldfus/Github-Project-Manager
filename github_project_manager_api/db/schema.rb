@@ -33,9 +33,11 @@ ActiveRecord::Schema.define(version: 20161014020613) do
   create_table "tasks", force: :cascade do |t|
     t.integer  "priority"
     t.integer  "project_id"
-    t.string   "status",     default: "Pending"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.string   "title"
+    t.text     "description"
+    t.string   "status",      default: "open"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.string   "content"
   end
 

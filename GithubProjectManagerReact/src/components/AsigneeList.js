@@ -40,7 +40,7 @@ export default class AsigneeList extends React.Component {
           style={styles.chip}
         >
           <Avatar src={asignee.profileImage}/>
-          asignee.username
+          {asignee.username}
         </Chip>
       )
     })

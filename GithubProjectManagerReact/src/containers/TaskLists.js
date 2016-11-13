@@ -1,41 +1,39 @@
 import React, {Component} from 'react';
-import {ListItem} from 'material-ui/List';
-import SelectableList from './SelectableList'
-import Task from '../components/Task'
+import {List} from 'material-ui/List';
+import TaskContainer from './TaskContainer'
+import Divider from 'material-ui/Divider';
+
 
 class TaskList extends Component {
 
-  wrapTaskInListItems(task){
-    let taskComponent = (
-      <Task
-        title={task.title}
-        subtitle={task.subtitle}
-        description={task.description}
-        asignees={task.asignees}
-      />
-    )
-
+  renderTask(task){
     return (
-        <ListItem
-          primaryText={taskComponent}
-          key={task.id}
-          value={task.id}
+    <div key={task.id}>
+        <TaskContainer
+          status={task.status}
+          title={task.title}
+          labels={task.labels}
+          priority={task.priority}
+          id={task.id}
         />
+        <Divider />
+    </div>
     )
   }
 
+
+
   render(){
     const tasks = this.props.tasksList || []
-    const wrappedTasks = tasks.map( task => {
-      return this.wrapTaskInListItems(task)
+    const taskList = tasks.map( task => {
+      return this.renderTask(task)
     },this)
 
     return (
-            <div>
-              <SelectableList defaultValue={1}>
-                {wrappedTasks}
-              </SelectableList>
-            </div>
+            <List>
+              {taskList}
+              <Divider />
+            </List>
           )
   }
 }
