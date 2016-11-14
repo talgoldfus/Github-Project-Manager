@@ -23,10 +23,12 @@ loggedInWithToken().then((state)=>{
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )
 
+
+
 ReactDOM.render(
 
   <Provider store={store} >
-    <Router history={browserHistory} routes={Routes}/>
+    <Router history={browserHistory} routes={Routes(store)}/>
   </Provider>,
  document.getElementById('root')
 );

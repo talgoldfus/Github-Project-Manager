@@ -7,15 +7,23 @@ import GithubCallback from './connectors/GithubCallback'
 import GithubProjectSelector from './containers/GithubProjectSelector'
 import ProjectPage from './containers/ProjectPage'
 
+const authorize = (store) => {
+  return (nextState, replace) => {
+    let signedIn = store.getState().authentication.authenticated
+    signedIn ? null : replace('/')
+  }
+};
 
-export default (
-  <div>
-    <Route path="/" component={App} >
-      <Route path="signin" component={LogInForm} />
-      <Route path="signup" component={SignupForm} />
-      <Route path="connected" component={GithubProjectSelector} />
-      <Route path="projects/:id" component={ProjectPage} />
-    </Route >
-    <Route path="github-callback" component={GithubCallback} />
-  </div>
-)
+export default (store)=>{
+  return(
+        <div>
+          <Route path="/" component={App}>
+            <Route path="signin" component={LogInForm} />
+            <Route path="signup" component={SignupForm} />
+            <Route path="connected" component={GithubProjectSelector} />
+            <Route path="projects/:id" component={ProjectPage} onEnter={authorize(store)} />
+          </Route >
+          <Route path="github-callback" component={GithubCallback} />
+        </div>
+  )
+}
