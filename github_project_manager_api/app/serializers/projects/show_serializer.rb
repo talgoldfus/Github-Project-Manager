@@ -1,4 +1,4 @@
-class Projects::IndexSerializer < ProjectSerializer
+class Projects::ShowSerializer < ProjectSerializer
   has_many :users
   has_many :managers
   has_many :tasks

@@ -1,3 +1,4 @@
 class ProjectSerializer < ActiveModel::Serializer
-  attributes :id, :title, :repo, :public
+  attributes :id, :title, :repo_id, :public
+
 end

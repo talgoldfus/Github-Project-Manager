@@ -2,7 +2,7 @@ module Api
   module V1
     class GithubController < ApplicationController
 
-    before_action :authenticate_request!
+    # before_action :authenticate_request!
 
       def create
           if params[:code]
@@ -12,16 +12,24 @@ module Api
              :client_secret => ENV['gh_client_secret'],
              :code => user_code},headers: {accept: 'application/json'})
              if response["access_token"]
-               @current_user.update(gh_token: response["access_token"])
-               render json: {connected: 'True'}
+               username = GithubActions.new(response["access_token"]).user.login
+               user = User.find_by(username: username )
+               if user
+                 user.update(gh_token: response["access_token"])
+                 render json: {username: username ,connected:true ,existing_user:true}
+                 search_owner_repos
+               else
+                 temp_token = JsonWebToken.encode({username:username,gh_token: response["access_token"]})
+                 render json: {username: username ,connected:true ,existing_user:false , temp_token: temp_token}
+               end
              else
-               render json: {connected: 'False'}
+                render status: 404, json: "User not found"
              end
           end
       end
 
      def show
-       action = GithubActions.new(@current_user)
+       action = GithubActions.new(@current_user.gh_token)
        result = action.get_results(params[:id],params[:q])
        render json: result
      end

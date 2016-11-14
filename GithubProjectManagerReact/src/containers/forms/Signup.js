@@ -6,7 +6,7 @@ import signupAction from '../../actions/signupAction'
 
 const validate = values => {
   const errors = {}
-  const requiredFields = [ 'name', 'username','password','passwordConfirmation']
+  const requiredFields = [ 'password','passwordConfirmation']
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
@@ -38,10 +38,7 @@ const SignupForm = props => {
   return (
     <form onSubmit={handleSubmit(info=>signupAction(info,dispatch))}>
       <div>
-        <Field name="name" component={renderTextField} label="Name"/>
-      </div>
-      <div>
-        <Field name="username" component={renderTextField} label="Username"/>
+        <h2>username: {localStorage.username}</h2>
       </div>
       <div>
         <Field name="password" component={renderTextField} label="Password"/>

@@ -14,9 +14,12 @@ module Api
       end
 
       def show
-        byebug
-        project = Project.find_by(repo_id: params[:project][:id])
-        render json: project
+        project = Project.find(params[:id])
+        if (@current_user.projects.find{|p| p.id == project.id})
+          render json: project ,include: ['tasks'] ,serializer: Projects::ShowSerializer
+        else
+          render status: 404, json: "Project not found"
+        end
       end
 
       def create
@@ -26,8 +29,6 @@ module Api
         end
         render json: {project_id: project.id}
       end
-
-
 
     end
   end

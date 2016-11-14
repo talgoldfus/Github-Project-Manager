@@ -5,21 +5,21 @@ const connectGithubAction = (ghCode)=>{
    return axios({
       url: "http://localhost:3000/api/v1/github-callback",
       method:'post',
-      headers: { Authorization: localStorage.getItem('token')},
       data: { code: ghCode }
    })
     .then((response)=>{
-      if (response.data.connected === "True"){
-        browserHistory.push('/')
+      localStorage.setItem('username', response.data.username)
+      if (response.data.existing_user){
+        browserHistory.push('/login')
         return {type: 'GH_CONNECTED', payload: true}
-      }else {
-        browserHistory.push('/')
-        return {type: 'GH_CONNECTED', payload: false}
+      }else{
+        browserHistory.push('/signup')
+        localStorage.setItem('temp_token', response.data.temp_token)
+        return {type: 'GH_CONNECTED', payload: true}
       }
     })
     .catch( error => {
-      browserHistory.push('/connected')
-      console.log(error)
+      browserHistory.push('/')
       return {type: 'GH_CONNECTED', payload: false}
     })
 }
