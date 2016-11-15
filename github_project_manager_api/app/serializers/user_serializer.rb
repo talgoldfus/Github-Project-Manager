@@ -1,7 +1,6 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :username, :profile_picture
-  has_many :projects
-  has_many :tasks
+  attributes :id, :username, :profile_picture
+
 
 
 end

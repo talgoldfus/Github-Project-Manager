@@ -1,9 +1,11 @@
 class User < ApplicationRecord
-  has_many :user_tasks
-  has_many :user_projects
-  has_many :tasks , through: :user_tasks
-  has_many :projects ,through: :user_projects
+  has_one :project_manager
+  has_one :collaborator
 
   has_secure_password
+
+  def all_projects
+    self.collaborator.projects + self.project_manager.projects
+  end
 
 end

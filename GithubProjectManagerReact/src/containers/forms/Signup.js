@@ -2,7 +2,7 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import TextField from 'material-ui/TextField'
 import asyncValidate from '../../formValidations/SignUpFormValidation'
-import signupAction from '../../actions/signupAction'
+import signup from '../../actions/signup'
 
 const validate = values => {
   const errors = {}
@@ -36,7 +36,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 const SignupForm = props => {
   const {  handleSubmit,pristine,submitting,dispatch } = props
   return (
-    <form onSubmit={handleSubmit(info=>signupAction(info,dispatch))}>
+    <form onSubmit={handleSubmit(info=>signup(info,dispatch))}>
       <div>
         <h2>username: {localStorage.username}</h2>
       </div>

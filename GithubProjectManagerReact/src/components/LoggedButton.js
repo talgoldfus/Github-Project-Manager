@@ -4,11 +4,11 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import logoutAction from '../actions/logoutAction'
+import logout from '../actions/logout'
 
 const Logged = (props) => {
 
-  const logout = ()=>props.logout()
+  const logout = () => props.logout()
   const IconMenuProps = Object.assign({},props)
   delete IconMenuProps.logout
 
@@ -30,6 +30,6 @@ const Logged = (props) => {
 
 Logged.muiName = 'IconMenu';
 
-const LoggedConnector = connect(null,{logout:logoutAction})(Logged)
+const LoggedConnector = connect(null,{logout})(Logged)
 
 export default LoggedConnector

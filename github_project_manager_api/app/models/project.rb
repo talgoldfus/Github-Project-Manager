@@ -1,8 +1,8 @@
 class Project < ApplicationRecord
-  has_many :user_projects
-  has_many :manager_projects
-  has_many :users ,through: :user_projects
-  has_many :managers ,through: :manager_projects
+  has_many :collaborator_projects
+  has_many :collaborators , through: :collaborator_projects
+  has_many :project_manager_projects
+  has_many :project_managers , through: :project_manager_projects
   has_many :tasks
 
 end

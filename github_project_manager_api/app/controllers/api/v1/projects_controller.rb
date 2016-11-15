@@ -3,22 +3,15 @@ module Api
     class ProjectsController < ApplicationController
       before_action :authenticate_request!
 
-      def index
-        # if params[:public]
-        #   projects = Project.all.select {|p| p.public }
-        #   render json: projects , each_serializer: Projects::IndexSerializer
-        # else
-        #   render json: Project.includes(:users,:managers), include: ['users' , 'managers'] , each_serializer: Projects::IndexSerializer
-        # end
-      #  render json: Project.includes(:users,:managers), include: ['users' , 'managers']
-      end
 
       def show
         project = Project.find(params[:id])
+        byebug
         if (@current_user.projects.find{|p| p.id == project.id})
-          render json: project ,include: ['tasks'] ,serializer: Projects::ShowSerializer
+          access_level =  project.managers.find{|user| user.id == @current_user.id} ? 'manager' : 'user'
+          render json: {project: project , user_access_level: access_level} ,include: ['tasks'] ,serializer: Projects::ShowSerializer
         else
-          render status: 404, json: "Project not found"
+          render  json: "Project not found" ,status: 404
         end
       end
 
