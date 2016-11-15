@@ -20,7 +20,7 @@ export default (store)=>{
           <Route path="/" component={App}>
             <Route path="signin" component={LogInForm} />
             <Route path="signup" component={SignupForm} />
-            <Route path="connected" component={GithubProjectSelector} />
+            <Route path="connected" component={GithubProjectSelector} onEnter={authorize(store)} />
             <Route path="projects/:id" component={ProjectPage} onEnter={authorize(store)} />
           </Route >
           <Route path="github-callback" component={GithubCallback} />

@@ -5,18 +5,13 @@ import loginUser from '../../actions/loginUser'
 
 const validate = values => {
   const errors = {}
-  const requiredFields = [ 'username','password']
+  const requiredFields = [ 'password']
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
     }
   })
-  // if (values.username && values.username.length<8) {
-  //   errors.username = 'Username must be atleast 8 characters long'
-  // }
-  // else if (values.password && values.password.length<8) {
-  //   errors.password = 'Password must be atleast 8 characters long'
-  // }
+
   return errors
 }
 
@@ -36,7 +31,7 @@ const LogInForm = props => {
   return (
     <form onSubmit={handleSubmit(info=>loginUser(info,dispatch))}>
       <div>
-        <Field name="username" component={renderTextField} label="Username"/>
+        <h2>username: {localStorage.username}</h2>
       </div>
       <div>
         <Field name="password" component={renderTextField} label="Password"/>

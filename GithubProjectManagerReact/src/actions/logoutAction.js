@@ -11,7 +11,7 @@ const logoutActionAction = () => {
   ).then((response)=>{
           localStorage.clear()
           return batchActions(
-            [{type: 'LOG_IN', payload: false},
+            [{type: 'LOGGED_IN', payload: false},
             {type: 'GH_CONNECTED', payload: false}])
     })
   }

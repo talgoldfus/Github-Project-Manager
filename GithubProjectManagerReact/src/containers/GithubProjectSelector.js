@@ -8,7 +8,6 @@ import {
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
-import ConnectGithubButton from '../containers/ConnectGithubButtonContainer';
 import SearchGithub from './forms/SearchGithub'
 import RepoSearchResults from './RepoSearchResults'
 import completedStep from '../actions/completedStep'
@@ -27,7 +26,7 @@ class GithubProjectSelector extends React.Component {
 
   handleNext = () => {
     const {stepIndex} = this.state;
-    if(stepIndex === 2){
+    if(stepIndex === 1){
       let repo = this.props.repoSearchResults.find(
         repo => repo.id === this.props.currentRepo
       )
@@ -37,7 +36,7 @@ class GithubProjectSelector extends React.Component {
       this.setState({
           loading: false,
           stepIndex: stepIndex + 1,
-          finished: stepIndex >= 2,
+          finished: stepIndex >= 1,
         })
       this.props.completedStep(false)
     }
@@ -54,15 +53,6 @@ class GithubProjectSelector extends React.Component {
   getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
-        return (
-          <div>
-            <p>
-              Connect to github .
-            </p>
-            <ConnectGithubButton />
-          </div>
-        );
-      case 1:
 
         return (
           <div>
@@ -70,7 +60,7 @@ class GithubProjectSelector extends React.Component {
             <SearchGithub nextStep={this.handleNext}/>
           </div>
         );
-      case 2:
+      case 1:
         return (
           <div>
             <p>Select to start managing</p>
@@ -97,7 +87,7 @@ class GithubProjectSelector extends React.Component {
             style={{marginRight: 12}}
           />
           <RaisedButton
-            label={stepIndex === 2 ? 'Finish' : 'Next'}
+            label={stepIndex === 1 ? 'Finish' : 'Next'}
             primary={true}
             disabled={!this.props.stepCompleted}
             onTouchTap={this.handleNext}
@@ -113,9 +103,6 @@ class GithubProjectSelector extends React.Component {
     return (
       <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
         <Stepper activeStep={stepIndex}>
-          <Step>
-            <StepLabel>Connect to Github</StepLabel>
-          </Step>
           <Step>
             <StepLabel>Search your repos</StepLabel>
           </Step>

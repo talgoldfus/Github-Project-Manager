@@ -1,6 +1,6 @@
 const authReducer =  function(state = {}, action){
   switch(action.type){
-    case 'LOG_IN':
+    case 'LOGGED_IN':
       return {...state, authenticated: action.payload };
     case 'AUTH_ERROR':
       return { ...state, error: action.payload };

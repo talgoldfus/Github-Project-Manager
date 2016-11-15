@@ -10,7 +10,7 @@ const connectGithubAction = (ghCode)=>{
     .then((response)=>{
       localStorage.setItem('username', response.data.username)
       if (response.data.existing_user){
-        browserHistory.push('/login')
+        browserHistory.push('/signin')
         return {type: 'GH_CONNECTED', payload: true}
       }else{
         browserHistory.push('/signup')

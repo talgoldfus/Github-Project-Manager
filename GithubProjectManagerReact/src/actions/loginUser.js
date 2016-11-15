@@ -11,7 +11,7 @@ export default function loginUserAction(formProps,dispatch) {
       if (response.data.auth_token){
         localStorage.setItem('token', response.data.auth_token)
         browserHistory.push('/')
-        dispatch({type: 'LOG_IN', payload: true})
+        dispatch({type: 'LOGGED_IN', payload: true})
       }
     }).catch((error)=>{
       if (error.response.status === 500){
