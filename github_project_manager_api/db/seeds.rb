@@ -19,20 +19,6 @@ james =  User.create(username:'James@James.com',password:"test",password_confirm
 john =  User.create(username:'John@John.com',password:"test",password_confirmation:"test" ,profile_picture:'http')
 kevin =  User.create(username:'Kevin@Kevin.com',password:"test",password_confirmation:"test" ,profile_picture:'http')
 
-ProjectManager.create(user_id:tom.id)
-ProjectManager.create(user_id:tal.id)
-ProjectManager.create(user_id:tod.id)
-ProjectManager.create(user_id:james.id)
-ProjectManager.create(user_id:john.id)
-ProjectManager.create(user_id:kevin.id)
-
-Collaborator.create(user_id:tom.id)
-Collaborator.create(user_id:tal.id)
-Collaborator.create(user_id:tod.id)
-Collaborator.create(user_id:james.id)
-Collaborator.create(user_id:john.id)
-Collaborator.create(user_id:kevin.id)
-
 
 project1.project_managers =[tod.project_manager,kevin.project_manager]
 project1.collaborators = [james.collaborator,tal.collaborator,john.collaborator]

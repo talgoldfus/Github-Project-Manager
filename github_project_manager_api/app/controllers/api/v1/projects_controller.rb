@@ -6,10 +6,9 @@ module Api
 
       def show
         project = Project.find(params[:id])
-        byebug
-        if (@current_user.projects.find{|p| p.id == project.id})
-          access_level =  project.managers.find{|user| user.id == @current_user.id} ? 'manager' : 'user'
-          render json: {project: project , user_access_level: access_level} ,include: ['tasks'] ,serializer: Projects::ShowSerializer
+        if (@current_user.all_projects.find{|p| p.id == project.id})
+          access_level =  project.user_project_managers.find{|manager| manager == @current_user} ? 'manager' : 'collaborator' 
+          render json: {project: project ,access_level:access_level } ,include: ['tasks'] ,serializer: Projects::ShowSerializer
         else
           render  json: "Project not found" ,status: 404
         end
