@@ -10,7 +10,7 @@ class Project < ApplicationRecord
   end
 
   def user_project_managers
-    self.collaborators.map{|c| c.user}
+    self.project_managers.map{|c| c.user}
   end
 
 end
