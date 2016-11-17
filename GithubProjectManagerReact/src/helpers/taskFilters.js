@@ -1,36 +1,47 @@
 function filterTasksByStatus(tasks, status){
   switch (status) {
-    case 'open':
-      return tasks.filter(t => t.status === 'open')
+    case 'todo':
+      return tasks.filter(t => t.status === 'todo')
+    case 'inProgress':
+      return tasks.filter(t => t.status === 'inProgress')
     case 'inReview':
       return tasks.filter(t => t.status === 'inReview')
-    case 'closed':
-      return tasks.filter(t => !t.status === 'closed')
+    case 'completed':
+      return tasks.filter(t => t.status === 'completed')
   }
 }
 
 function filterAllTasks(tasks){
-
   return {
-    openTasks: filterTasksByStatus(tasks, 'open'),
-    inReviewTasks: filterTasksByStatus(tasks, 'inReview'),
-    closedTasks: filterTasksByStatus(tasks, 'closed')
+    todoTasks: sortTasksByPriority(filterTasksByStatus(tasks,'todo'),'DESC'),
+    inProgressTasks: sortTasksByPriority(filterTasksByStatus(tasks,'inProgress'),'DESC'),
+    inReviewTasks: sortTasksByPriority(filterTasksByStatus(tasks,'inReview'),'DESC'),
+    completedTasks: sortTasksByPriority(filterTasksByStatus(tasks,'completed'),'DESC')
+  }
+}
+
+function sortTasksByPriority(tasks,sortBy){
+  switch (sortBy) {
+    case 'ASC':
+      return tasks.sort((a,b)=> a.priority - b.priority)
+    case 'DESC':
+      return tasks.sort((a,b)=> b.priority - a.priority)
   }
 }
 
 
 function filterIconName(status){
   switch (status) {
-    case "open":
-      return "fa fa-exclamation-circle"
+    case "todo":
+      return "fa fa-plus-square-o"
+    case "inProgress":
+      return "fa fa-spinner"
     case "inReview":
-      return
-    case "closed":
-      return "fa fa-check-square-o"
-    default:
       return "fa fa-exclamation-circle"
+    case "completed":
+      return "fa fa-check-square-o"
   }
 }
 
 
-export { filterTasksByStatus, filterAllTasks,filterIconName };
+export { filterTasksByStatus, filterAllTasks,filterIconName , sortTasksByPriority };

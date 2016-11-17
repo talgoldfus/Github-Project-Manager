@@ -1,5 +1,5 @@
 class TaskSerializer < ActiveModel::Serializer
-  attributes :id , :description ,:priority ,:status ,:title
+  attributes :id , :content , :description ,:priority ,:status ,:title
   attribute :assignees
 
   def assignees

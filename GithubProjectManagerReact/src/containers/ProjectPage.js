@@ -3,23 +3,8 @@ import {connect} from 'react-redux'
 import { withRouter } from 'react-router'
 import {Tabs, Tab} from 'material-ui/Tabs';
 import TaskLists from './TaskLists'
-import {Table,
-        TableBody,
-        TableHeader,
-        TableHeaderColumn,
-        TableRow,
-        TableRowColumn} from 'material-ui/Table';
 import getProject from '../actions/getProject'
 import {filterAllTasks} from '../helpers/taskFilters'
-
-const styles = {
-  headline: {
-    fontSize: 24,
-    paddingTop: 16,
-    marginBottom: 12,
-    fontWeight: 400,
-  },
-};
 
 class ProjectPage extends React.Component {
 
@@ -30,7 +15,7 @@ class ProjectPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 'open',
+      value: 'todo',
     };
   }
 
@@ -43,7 +28,7 @@ class ProjectPage extends React.Component {
 
   render() {
     const tasks = this.props.tasks || []
-    const {openTasks,inReviewTasks,closedTasks} = filterAllTasks(tasks)
+    const {todoTasks,inProgressTasks,inReviewTasks,completedTasks} = filterAllTasks(tasks)
 
     return (
       <div>
@@ -52,22 +37,24 @@ class ProjectPage extends React.Component {
           value={this.state.value}
           onChange={this.handleChange}
         >
-          <Tab label="open" value="open" >
+          <Tab label="Todo" value="todo" >
             <div>
-              <h2 style={styles.headline}>Open</h2>
-              <TaskLists tasksList={openTasks} />
+              <TaskLists tasksList={todoTasks} />
             </div>
           </Tab>
-          <Tab label="inReview" value="inReview">
+          <Tab label="In-Progress" value="inProgress" >
             <div>
-              <h2 style={styles.headline}>In-Review</h2>
+              <TaskLists tasksList={inProgressTasks} />
+            </div>
+          </Tab>
+          <Tab label="In-Review" value="inReview">
+            <div>
               <TaskLists tasksList={inReviewTasks} />
             </div>
           </Tab>
-          <Tab label="closed" value="closed">
+          <Tab label="Completed" value="completed">
             <div>
-              <h2 style={styles.headline}>Closed</h2>
-              <TaskLists tasksList={closedTasks} />
+              <TaskLists tasksList={completedTasks} />
             </div>
           </Tab>
         </Tabs>

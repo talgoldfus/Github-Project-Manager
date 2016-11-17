@@ -8,9 +8,10 @@ module Api
         project = Project.find(params[:id])
         if (@current_user.all_projects.find{|p| p.id == project.id})
           access_level = project.user_project_managers.find{|manager| manager == @current_user} ? 'manager' : 'collaborator'
-          render json:  project ,include: ['tasks'] , serializer: Projects::ShowSerializer , access_level: access_level , key_transform: :unaltered
+          render json:  project ,include: ['tasks'] , serializer: Projects::ShowSerializer , access_level: access_level
         else
-          render  json: "Project not found" ,status: 404
+          project.errors.add(:id, "Project not found")
+          render json: project , status: 404, serializer: ActiveModel::Serializer::ErrorSerializer
         end
       end
 

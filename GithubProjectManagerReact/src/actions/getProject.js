@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { browserHistory } from 'react-router'
+import {redirectToHome} from '../helpers/errorHandlers'
 
 const getProject = (id) => {
   return axios({
@@ -21,7 +23,9 @@ const getProject = (id) => {
           collaborators: project.collaborators
         }
       }
-    })
+    },
+    redirectToHome
+  )
   }
 
 

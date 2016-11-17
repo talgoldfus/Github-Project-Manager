@@ -5,8 +5,8 @@ class CreateTasks < ActiveRecord::Migration[5.0]
       t.integer :project_id
       t.string :title
       t.text :description
-      t.string :content 
-      t.string :status  , :default => 'open'
+      t.string :content
+      t.string :status  , :default => 'todo'
       t.timestamps
     end
   end

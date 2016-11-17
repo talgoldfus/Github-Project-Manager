@@ -3,7 +3,7 @@ import TaskInfo from '../components/TaskInfo';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
-class TaskContainer extends Component {
+class TaskInfoContainer extends Component {
 
   constructor(props){
     super(props)
@@ -56,4 +56,4 @@ class TaskContainer extends Component {
   }
 };
 
-export default TaskContainer;
+export default TaskInfoContainer;
