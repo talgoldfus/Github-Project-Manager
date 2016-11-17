@@ -7,8 +7,20 @@ const getProject = (id) => {
     headers: { Authorization: localStorage.getItem('token')},
     data: {id}
   }).then((response)=>{
-      debugger
+      let project =  response.data.data.attributes
+      let tasks  = response.data.included.map(task=>{
+        return Object.assign({id:task.id}, task.attributes)
+      })
 
+      return {
+        type:'GET_PROJECT',
+        payload:{
+          project_info: {title: project.title , repoId: project.repoId },
+          tasks: tasks,
+          accessLevel: project.access_level,
+          collaborators: project.collaborators
+        }
+      }
     })
   }
 

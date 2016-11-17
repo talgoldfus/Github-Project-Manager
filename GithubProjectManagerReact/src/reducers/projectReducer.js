@@ -1,16 +1,22 @@
-const projectReducer =  function(state = {
-  project:{},
-  tasks:[],
-  manager:{},
-  assignees:[]
-}, action){
+const projectReducer = function(state = {
+    project_info: {},
+    tasks: [],
+    manager: {},
+    collaborators: []
+}, action) {
 
-    switch(action.type){
-    case '':
-      // return {...state, repoSearchResults: action.payload };
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case 'GET_PROJECT':
+            let project = action.payload
+            return {
+                accessLevel: project.accessLevel,
+                collaborators: project.collaborators,
+                project_info: project.project_info,
+                tasks: project.tasks
+            };
+        default:
+            return state;
+    }
 }
 
 

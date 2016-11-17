@@ -10,91 +10,7 @@ import {Table,
         TableRow,
         TableRowColumn} from 'material-ui/Table';
 import getProject from '../actions/getProject'
-
-// const TestAsignees = [{id:2,profileImage: "http://www.material-ui.com/images/ok-128.jpg",username:"John"},{id:1,profileImage: "http://www.material-ui.com/images/kolage-128.jpg",username:"James"}]
-// const TestTasks1 =[
-// {
-//   id:1,
-//   title:"To Do 1",
-//   subtitle:"Test",
-//   description:"Testing Task List container and task components",
-//   priority:2,
-//   asignees: TestAsignees
-// },
-// {
-//   id:2,
-//   title:"To Do 2",
-//   subtitle:"Test",
-//   description:"Testing Task List container and task components",
-//   priority:2,
-//   asignees: [TestAsignees[0]]
-//
-// },
-// {
-//   id:3,
-//   title:"To Do 3",
-//   subtitle:"Test",
-//   description:"Testing Task List container and task components",
-//   priority:2,
-//   asignees: []
-// }
-// ]
-//
-// const TestTasks2 =[
-// {
-//   id:4,
-//   title:"In Review 1",
-//   subtitle:"Test",
-//   description:"Testing Task List container and task components",
-//   priority:2,
-//   asignees: TestAsignees
-// },
-// {
-//   id:5,
-//   title:"In Review 2",
-//   subtitle:"Test",
-//   description:"Testing Task List container and task components",
-//   priority:2,
-//   asignees: [TestAsignees[0]]
-//
-// },
-// {
-//   id:6,
-//   title:"In Review 3",
-//   subtitle:"Test",
-//   description:"Testing Task List container and task components",
-//   priority:2,
-//   asignees: []
-// }
-// ]
-//
-// const TestTasks3 =[
-// {
-//   id:7,
-//   title:"Completed 1",
-//   subtitle:"Test",
-//   description:"Testing Task List container and task components",
-//   priority:2,
-//   asignees: TestAsignees
-// },
-// {
-//   id:8,
-//   title:"Completed 2",
-//   subtitle:"Test",
-//   description:"Testing Task List container and task components",
-//   priority:2,
-//   asignees: [TestAsignees[0]]
-//
-// },
-// {
-//   id:9,
-//   title:"Completed 3",
-//   subtitle:"Test",
-//   description:"Testing Task List container and task components",
-//   priority:2,
-//   asignees: []
-// }
-// ]
+import {filterAllTasks} from '../helpers/taskFilters'
 
 const styles = {
   headline: {
@@ -108,7 +24,7 @@ const styles = {
 class ProjectPage extends React.Component {
 
   componentWillMount(){
-    getProject(parseInt(this.props.routeParams.id))
+    this.props.getProject(parseInt(this.props.routeParams.id))
   }
 
   constructor(props) {
@@ -126,7 +42,8 @@ class ProjectPage extends React.Component {
 
 
   render() {
-    const {openTasks,inReviewTasks,closedTasks} = this.porps.tasks
+    const tasks = this.props.tasks || []
+    const {openTasks,inReviewTasks,closedTasks} = filterAllTasks(tasks)
 
     return (
       <div>
@@ -141,7 +58,7 @@ class ProjectPage extends React.Component {
               <TaskLists tasksList={openTasks} />
             </div>
           </Tab>
-          <Tab label="in-review" value="in-review">
+          <Tab label="inReview" value="inReview">
             <div>
               <h2 style={styles.headline}>In-Review</h2>
               <TaskLists tasksList={inReviewTasks} />
@@ -159,10 +76,15 @@ class ProjectPage extends React.Component {
   }
 }
 
+
+
+
 function mapStateToProps(state){
-  return {taks: state.project.tasks}
+  return {tasks: state.project.tasks}
 }
 
-const ProjectPageContainer = connect(mapStateToProps,null)(ProjectPage)
+
+
+const ProjectPageContainer = connect(mapStateToProps,{getProject})(ProjectPage)
 
 export default withRouter(ProjectPageContainer)
