@@ -1,59 +1,62 @@
 import React,{Component} from 'react';
-import TaskInfo from '../components/TaskInfo';
-import Dialog from 'material-ui/Dialog';
+import AsigneeList from '../components/AsigneeList';
+import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
+import FontIcon from 'material-ui/FontIcon';
 
-class TaskInfoContainer extends Component {
 
-  constructor(props){
-    super(props)
-    this.state = {
-        open: false,
-      };
+class TaskFull extends Component {
+
+constructor(props){
+  super(props)
+  this.renderEditorialOptions = this.renderEditorialOptions.bind(this)
+}
+
+renderEditorialOptions(){
+  debugger
+    if (this.props.accessLevel === 'manager'){
+      return(
+        <FlatButton
+          label="EDIT"
+          labelPosition="before"
+          primary={true}
+          icon={<FontIcon className="fa fa-pencil" />}
+        />
+      )
+    }
+    else{
+      return null
+    }
   }
 
-  handleOpen(){
-    this.setState({open: true});
-  };
-
-  handleClose(){
-    this.setState({open: false});
-  };
-
-
   render(){
-
-    const actions = [
-      <FlatButton
-        label="Close"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.handleClose.bind(this)}
-      />
-    ];
+    const task = this.props.fullDetails(this.props.id)
 
     return(
-      <div onTouchTap={this.handleOpen.bind(this)}>
-
-        <TaskInfo
-          status={this.props.status}
-          title={this.props.title}
-          labels={this.props.labels}
-          priority={this.props.priority}
-        />
-
-        <Dialog
-          title={this.props.title}
-          actions={actions}
-          modal={false}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
-        >
-          Full Task Component
-        </Dialog>
+      <div>
+        <div>
+          <div>
+            <h2>{task.title}</h2>
+            <h2>Priority: {task.priority}</h2>
+          </div>
+          <h4>{task.description}</h4>
+          <p>{task.content}</p>
+        </div>
+        <AsigneeList asignees={task.asignees}/>
+        {this.renderEditorialOptions()}
       </div>
     )
   }
 };
 
-export default TaskInfoContainer;
+function mapStateToProps(state){
+  return {
+    fullDetails: (id) => {
+    return state.project.tasks.find(t => t.id === id )
+    } ,
+   accessLevel: state.project.accessLevel
+  }
+}
+
+const TaskFullContainer = connect(mapStateToProps,null)(TaskFull)
+export default TaskFullContainer;

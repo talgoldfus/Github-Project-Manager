@@ -1,8 +1,8 @@
 const projectReducer = function(state = {
+    accessLevel: "" ,
+    collaborators: [],
     project_info: {},
-    tasks: [],
-    manager: {},
-    collaborators: []
+    tasks: []
 }, action) {
 
     switch (action.type) {

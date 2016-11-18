@@ -15,12 +15,7 @@ class TaskInfo extends Component{
           leftAvatar={<FontIcon className={filterIconName(this.props.status)} />}
           primaryText={this.props.title}
           secondaryText={this.props.labels}
-          rightIcon={
-            <div>
-              <FontIcon className="fa fa-hourglass-start" />
-              <p>{this.props.priority}</p>
-            </div>
-            }
+          rightIcon={<p>{this.props.priority}</p>}
         />
       </Paper>
     )

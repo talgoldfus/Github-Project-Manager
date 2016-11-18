@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import TaskInfo from '../components/TaskInfo';
+import TaskFullContainer from './TaskFullContainer';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -43,13 +44,11 @@ class TaskInfoContainer extends Component {
         />
 
         <Dialog
-          title={this.props.title}
           actions={actions}
           modal={false}
           open={this.state.open}
-          onRequestClose={this.handleClose}
         >
-          Full Task Component
+          <TaskFullContainer id={this.props.id} />
         </Dialog>
       </div>
     )

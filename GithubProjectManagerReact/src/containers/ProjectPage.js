@@ -5,6 +5,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import TaskLists from './TaskLists'
 import getProject from '../actions/getProject'
 import {filterAllTasks} from '../helpers/taskFilters'
+import AddTaskButton from '../components/AddTaskButton'
 
 class ProjectPage extends React.Component {
 
@@ -40,21 +41,25 @@ class ProjectPage extends React.Component {
           <Tab label="Todo" value="todo" >
             <div>
               <TaskLists tasksList={todoTasks} />
+              <AddTaskButton />
             </div>
           </Tab>
           <Tab label="In-Progress" value="inProgress" >
             <div>
               <TaskLists tasksList={inProgressTasks} />
+              <AddTaskButton />
             </div>
           </Tab>
           <Tab label="In-Review" value="inReview">
             <div>
               <TaskLists tasksList={inReviewTasks} />
+              <AddTaskButton />
             </div>
           </Tab>
           <Tab label="Completed" value="completed">
             <div>
               <TaskLists tasksList={completedTasks} />
+              <AddTaskButton />
             </div>
           </Tab>
         </Tabs>

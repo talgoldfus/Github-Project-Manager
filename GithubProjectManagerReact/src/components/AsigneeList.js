@@ -31,7 +31,8 @@ export default class AsigneeList extends React.Component {
   }
 
   renderAsignees(){
-    let asignees = this.props.asignees.map((asignee)=>{
+    let asignees = this.props.asignees || []
+    asignees.map((asignee)=>{
       return(
         <Chip
           key={asignee.id}
@@ -51,8 +52,9 @@ export default class AsigneeList extends React.Component {
        const asignees = this.renderAsignees()
        return (
          <div style={styles.wrapper}>
+         <h4>Asignees:</h4>
             {asignees}
-        </div>
+          </div>
       )
   }
 }

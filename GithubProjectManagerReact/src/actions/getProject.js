@@ -11,9 +11,8 @@ const getProject = (id) => {
   }).then((response)=>{
       let project =  response.data.data.attributes
       let tasks  = response.data.included.map(task=>{
-        return Object.assign({id:task.id}, task.attributes)
+        return Object.assign({id: parseInt(task.id) }, task.attributes)
       })
-
       return {
         type:'GET_PROJECT',
         payload:{

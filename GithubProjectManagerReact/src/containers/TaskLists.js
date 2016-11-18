@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {List} from 'material-ui/List';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton';
+import FontIcon from 'material-ui/FontIcon';
 import TaskInfoContainer from './TaskInfoContainer'
 import Divider from 'material-ui/Divider';
 import {sortTasksByPriority} from '../helpers/taskFilters'
-import IconButton from 'material-ui/IconButton';
 
 
 class TaskList extends Component {
@@ -50,13 +50,13 @@ class TaskList extends Component {
               <ToolbarGroup>
                 <ToolbarTitle text="Title" />
               </ToolbarGroup>
-              <ToolbarGroup lastChild={true}>
-                <ToolbarTitle text="Order by priority"/>
-                <IconButton
-                  iconClassName="fa fa-sort"
+                <FlatButton
+                  label="Priority"
+                  labelPosition="before"
+                  primary={true}
                   onTouchTap={this.toggleOrder}
+                  icon={<FontIcon className="fa fa-sort"/>}
                 />
-              </ToolbarGroup>
             </Toolbar>
             <List>
               {taskList}
