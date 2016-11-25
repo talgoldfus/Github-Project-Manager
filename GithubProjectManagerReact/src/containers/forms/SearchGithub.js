@@ -1,6 +1,6 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
-import TextField from 'material-ui/TextField'
+import {TextField} from 'redux-form-material-ui'
 import grabFromGithub from '../../actions/grabFromGithub'
 import completedStep from '../../actions/completedStep'
 
@@ -14,17 +14,6 @@ const validate = values => {
   })
   return errors
 }
-
-const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-    <TextField hintText={label}
-      floatingLabelText={label}
-      errorText={touched && error}
-      {...input}
-      {...custom}
-    />
-)
-
-
 
 const SearchGithub = props => {
 
@@ -46,7 +35,7 @@ const SearchGithub = props => {
   return (
     <form onSubmit={handleSubmit(submitSearch)}>
       <div>
-        <Field name="search" component={renderTextField} label="search"/>
+        <Field name="search" component={TextField} label="search"/>
       </div>
       <div>
         <button type="submit" disabled={pristine || submitting}>Search</button>

@@ -43,7 +43,6 @@ class AddTaskButton extends Component {
           >
           <ContentAdd />
         </FloatingActionButton>
-      </div>
 
         <Dialog
           actions={actions}
