@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import EditTaskForm from './forms/EditTask'
-import updateTask from '../actions/updateTask'
 
 class TaskFull extends Component {
 
@@ -44,7 +43,7 @@ constructor(props){
 
     return(
       <div>
-        {this.state.edit ? this.renderEditTaskInfo(task) : this.renderTaskInfo(task) }
+        {this.props.edit ? this.renderEditTaskInfo(task) : this.renderTaskInfo(task) }
       </div>
     )
   }
@@ -54,8 +53,9 @@ constructor(props){
 function mapStateToProps(state){
   return {
     fullDetails: (id) => {
-    return state.project.tasks.find(t => t.id === id )
-    }
+    return state.tasks.byId.find(t => t.id === id )
+    },
+    edit: state.tasks.editing
   }
 }
 

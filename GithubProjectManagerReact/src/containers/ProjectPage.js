@@ -72,7 +72,7 @@ class ProjectPage extends React.Component {
 
 
 function mapStateToProps(state){
-  return {tasks: state.project.tasks}
+  return {tasks: state.tasks.byId}
 }
 
 

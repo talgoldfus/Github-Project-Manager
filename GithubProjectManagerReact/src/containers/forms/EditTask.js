@@ -2,7 +2,7 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import {TextField , Slider} from 'redux-form-material-ui'
 import { connect } from 'react-redux'
-import updateTask from '../actions/updateTask'
+import updateTask from '../../actions/updateTask'
 
 
 const validate = values => {
@@ -17,7 +17,7 @@ const validate = values => {
   return errors
 }
 
-const handleSubmit=(values,dispatch)=>{dispatch(updateTask(values))
+const handleSubmit=(values,dispatch)=>{dispatch(updateTask(values))}
 
 
 const EditTask = props => {

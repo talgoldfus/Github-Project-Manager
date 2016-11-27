@@ -1,8 +1,7 @@
 const projectReducer = function(state = {
     accessLevel: "" ,
     collaborators: [],
-    project_info: {},
-    tasks: []
+    project_info: {}
 }, action) {
 
     switch (action.type) {
@@ -11,8 +10,7 @@ const projectReducer = function(state = {
             return {
                 accessLevel: project.accessLevel,
                 collaborators: project.collaborators,
-                project_info: project.project_info,
-                tasks: project.tasks
+                project_info: project.project_info
             };
         default:
             return state;

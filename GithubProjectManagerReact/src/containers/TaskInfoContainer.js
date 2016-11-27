@@ -74,8 +74,8 @@ class TaskInfoContainer extends Component {
         primary={true}
         keyboardFocused={true}
         onTouchTap={this.handleClose}
+        />
       )
-      />
     }
   }
 
