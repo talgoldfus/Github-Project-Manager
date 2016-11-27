@@ -3,30 +3,40 @@ import AsigneeList from '../components/AsigneeList';
 import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
-
+import EditTaskForm from './forms/EditTask'
+import updateTask from '../actions/updateTask'
 
 class TaskFull extends Component {
 
 constructor(props){
   super(props)
-  this.renderEditorialOptions = this.renderEditorialOptions.bind(this)
+  this.renderTaskInfo = this.renderTaskInfo.bind(this)
+  this.renderEditTaskInfo = this.renderEditTaskInfo.bind(this)
 }
 
-renderEditorialOptions(){
-  debugger
-    if (this.props.accessLevel === 'manager'){
-      return(
-        <FlatButton
-          label="EDIT"
-          labelPosition="before"
-          primary={true}
-          icon={<FontIcon className="fa fa-pencil" />}
-        />
-      )
-    }
-    else{
-      return null
-    }
+  renderTaskInfo(task){
+    return(
+            <div>
+              <div>
+                <div>
+                  <h2>{task.title}</h2>
+                  <h2>Priority: {task.priority}</h2>
+                </div>
+                <h4>{task.description}</h4>
+                <p>{task.content}</p>
+              </div>
+              <AsigneeList asignees={task.asignees}/>
+            </div>
+          )
+  }
+
+  renderEditTaskInfo(task){
+    return(
+            <div>
+              <EditTaskForm initialValues={task} />
+              <AsigneeList asignees={task.asignees}/>
+            </div>
+          )
   }
 
   render(){
@@ -34,27 +44,18 @@ renderEditorialOptions(){
 
     return(
       <div>
-        <div>
-          <div>
-            <h2>{task.title}</h2>
-            <h2>Priority: {task.priority}</h2>
-          </div>
-          <h4>{task.description}</h4>
-          <p>{task.content}</p>
-        </div>
-        <AsigneeList asignees={task.asignees}/>
-        {this.renderEditorialOptions()}
+        {this.state.edit ? this.renderEditTaskInfo(task) : this.renderTaskInfo(task) }
       </div>
     )
   }
+
 };
 
 function mapStateToProps(state){
   return {
     fullDetails: (id) => {
     return state.project.tasks.find(t => t.id === id )
-    } ,
-   accessLevel: state.project.accessLevel
+    }
   }
 }
 
