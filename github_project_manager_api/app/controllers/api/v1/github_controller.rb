@@ -34,7 +34,7 @@ module Api
      end
 
      private
-     
+
      def requireAuthentication
       params[:code] ? nil : authenticate_request!
      end

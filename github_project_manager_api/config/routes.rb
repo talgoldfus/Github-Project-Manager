@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       get 'action/:id' => 'github#show'
       resources :users
       resources :projects
-      resources :taks
+      resources :tasks
     end
   end
 end
