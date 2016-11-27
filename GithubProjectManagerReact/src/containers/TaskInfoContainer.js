@@ -1,34 +1,49 @@
 import React,{Component} from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import FontIcon from 'material-ui/FontIcon';
 import {connect} from 'react-redux';
 import { submit } from 'redux-form'
 import TaskInfo from '../components/TaskInfo';
 import TaskFullContainer from './TaskFullContainer';
-
+import editingTask from '../actions/editingTask'
 
 class TaskInfoContainer extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
         open: false,
       };
     this.handleOpen = this.handleOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.handleSave = this.handleSave.bind(this)
     this.renderEditorialOptions = this.renderEditorialOptions.bind(this)
-
   }
 
-  handleOpen(){
+  handleOpen() {
     this.setState({open: true});
   };
 
-  handleClose(){
+  handleClose() {
     this.setState({open: false});
   };
 
-  renderEditorialOptions(){
+  handleSave(dispatch) {
+  const submitForm = new Promise(resolve => {
+            resolve(
+                dispatch(submit('EditTaskForm'))
+            )
+        })
+
+  submitForm.then(
+          () => { dispatch(editingTask(false))}
+      )
+  }
+
+  renderEditorialOptions() {
+    const {dispatch} = this.props
+
     if(this.props.accessLevel === 'manager'){
       if (this.props.editing){
         return[
@@ -36,7 +51,7 @@ class TaskInfoContainer extends Component {
             label="Save"
             primary={true}
             keyboardFocused={true}
-            onTouchTap={() => this.props.dispatch(submit('EditTaskForm'))}
+            onTouchTap={()=>this.handleSave(dispatch) }
           />,
           <FlatButton
             label="Close"
@@ -54,9 +69,7 @@ class TaskInfoContainer extends Component {
             labelPosition="before"
             primary={true}
             icon={<FontIcon className="fa fa-pencil" />}
-            onTouchTap={
-               ()=> this.setState({edit:true})
-            }
+            onTouchTap={()=> dispatch(editingTask(true))}
           />,
           <FlatButton
             label="Close"
@@ -79,9 +92,8 @@ class TaskInfoContainer extends Component {
     }
   }
 
-  render(){
-    const actions = this.renderEditorialOptions
-
+  render() {
+    const actions = this.renderEditorialOptions()
     return(
       <div onTouchTap={this.handleOpen}>
 
@@ -107,14 +119,19 @@ class TaskInfoContainer extends Component {
 
 
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
     accessLevel: state.project.accessLevel,
     editing: state.tasks.editing
   }
 }
 
-const ConnectedTaskInfoContainer = connect(mapStateToProps,null)(TaskInfoContainer)
+
+
+
+
+
+const ConnectedTaskInfoContainer = connect(mapStateToProps)(TaskInfoContainer)
 
 
 export default ConnectedTaskInfoContainer;

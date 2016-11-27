@@ -1,8 +1,6 @@
 import React,{Component} from 'react';
 import AsigneeList from '../components/AsigneeList';
 import {connect} from 'react-redux';
-import FlatButton from 'material-ui/FlatButton';
-import FontIcon from 'material-ui/FontIcon';
 import EditTaskForm from './forms/EditTask'
 
 class TaskFull extends Component {

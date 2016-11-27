@@ -3,27 +3,26 @@ import { Field, reduxForm } from 'redux-form'
 import {TextField , Slider} from 'redux-form-material-ui'
 import { connect } from 'react-redux'
 import updateTask from '../../actions/updateTask'
+import { SubmissionError } from 'redux-form'
 
 
-const validate = values => {
-  const errors = {}
+function submit(values,dispatch){
   const requiredFields = [ 'title','priority','description','content']
   requiredFields.forEach(field => {
     if (!values[ field ]) {
-      errors[ field ] = 'Required'
+        throw new SubmissionError({ field:'Required', _error:'Required field'})
     }
   })
-
-  return errors
+  dispatch(updateTask(values))
 }
 
-const handleSubmit=(values,dispatch)=>{dispatch(updateTask(values))}
+
 
 
 const EditTask = props => {
-    const {pristine,submitting } = props
+
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={props.handleSubmit}>
         <div>
           <h2>Task Title</h2>
         </div>
@@ -69,7 +68,7 @@ const EditTask = props => {
 
 const form = reduxForm({
   form: 'EditTaskForm',
-  validate
+  onSubmit: submit
 })(EditTask)
 
 const connectedForm = connect(
