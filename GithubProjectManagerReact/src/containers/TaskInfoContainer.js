@@ -18,6 +18,7 @@ class TaskInfoContainer extends Component {
     this.handleOpen = this.handleOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.handleSave = this.handleSave.bind(this)
+    this.handleCloseWhileEditing = this.handleCloseWhileEditing.bind(this)
     this.renderEditorialOptions = this.renderEditorialOptions.bind(this)
   }
 
@@ -28,6 +29,11 @@ class TaskInfoContainer extends Component {
   handleClose() {
     this.setState({open: false});
   };
+
+  handleCloseWhileEditing(dispatch){
+    this.setState({open: false})
+    dispatch(editingTask(false))
+  }
 
   handleSave(dispatch) {
   const submitForm = new Promise(resolve => {
@@ -57,7 +63,7 @@ class TaskInfoContainer extends Component {
             label="Close"
             primary={true}
             keyboardFocused={true}
-            onTouchTap={this.handleClose}
+            onTouchTap={()=>this.handleCloseWhileEditing(dispatch)}
           />,
 
         ]
