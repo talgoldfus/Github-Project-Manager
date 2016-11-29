@@ -1,7 +1,7 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
-import updateTask from '../../actions/updateTask'
+import newTask from '../../actions/newTask'
 import { SubmissionError } from 'redux-form'
 import {TextField , Slider} from 'redux-form-material-ui'
 
@@ -16,8 +16,8 @@ const validate = values => {
   return errors
 }
 
-function submit(values,dispatch){
-  dispatch(updateTask(values))
+function submit(values,dispatch,props){
+  dispatch(newTask(values,props.repoId))
 }
 
 const TaskForm = props => {
@@ -34,11 +34,11 @@ const TaskForm = props => {
             <span>{`Priority: ${props.taskPriority}`}</span>
           </h2>
           <Field
-           name="priority"
-           component={Slider}
-           min={1}
-           max={10}
-           step={1}
+             name="priority"
+             component={Slider}
+             min={1}
+             max={10}
+             step={1}
            />
        </div>
        <div>
@@ -55,7 +55,6 @@ const TaskForm = props => {
             name="content"
             component={TextField}
             multiLine={true}
-            fullWidth={true}
             label="Task Content"
           />
         </div>
@@ -64,14 +63,28 @@ const TaskForm = props => {
 }
 
 const form = reduxForm({
-  form: 'EditTaskForm',
+  form: 'NewTaskForm',
+  validate,
   onSubmit: submit
 })(TaskForm)
 
-const connectedForm = connect(
-  state => ({
-    taskPriority: state.form["EditTaskForm"] ? state.form["EditTaskForm"].values.priority : null
-  }),null)(form)
+const priority = function(state){
+  if (state.form["NewTaskForm"]){
+    return state.form["NewTaskForm"].values ? state.form["NewTaskForm"].values.priority : 1
+  }
+  else {
+    return 1
+  }
+}
+
+const  mapStateToProps = function(state){
+    return ({
+      taskPriority: priority(state),
+      repoId: state.project.project_info.repoId
+    })
+}
+
+const connectedForm = connect(mapStateToProps, null)(form)
 
 
 export default connectedForm

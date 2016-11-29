@@ -3,6 +3,10 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import NewTaskForm from '../containers/forms/NewTask'
+import {connect} from 'react-redux';
+import { submit } from 'redux-form'
+
 
 
 class AddTaskButton extends Component {
@@ -12,6 +16,10 @@ class AddTaskButton extends Component {
     this.state = {
         open: false,
       };
+    this.handleClose = this.handleClose.bind(this)
+    this.handleOpen = this.handleOpen.bind(this)
+    this.handleSave = this.handleSave.bind(this)
+
   }
 
   handleOpen(){
@@ -22,16 +30,30 @@ class AddTaskButton extends Component {
     this.setState({open: false});
   };
 
+  handleSave(dispatch) {
+    dispatch(submit('NewTaskForm'))
+    if(!this.props.form.NewTaskForm.syncErrors){
+      this.setState({open: false});
+    }
+  }
 
   render(){
+    const {dispatch} = this.props
 
     const actions = [
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.handleClose.bind(this)}
+        onTouchTap={()=>this.handleSave(dispatch) }
+      />,
+      <FlatButton
+        label="Close"
+        primary={true}
+        keyboardFocused={false}
+        onTouchTap={this.handleClose}
       />
+
     ];
 
     return(
@@ -48,11 +70,18 @@ class AddTaskButton extends Component {
           actions={actions}
           modal={false}
           open={this.state.open}
+          autoScrollBodyContent={true}
         >
+          <NewTaskForm initialValues={{priority:5}} />
         </Dialog>
       </div>
     )
   }
 };
+function mapStateToProps(state){
+  return {form: state.form}
+}
 
-export default AddTaskButton;
+const AddTaskButtonContainer = connect(mapStateToProps,null)(AddTaskButton)
+
+export default AddTaskButtonContainer;

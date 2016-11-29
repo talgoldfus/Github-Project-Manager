@@ -126,11 +126,6 @@ function mapStateToProps(state) {
   }
 }
 
-
-
-
-
-
 const ConnectedTaskInfoContainer = connect(mapStateToProps)(TaskInfoContainer)
 
 

@@ -4,7 +4,6 @@ module Api
       before_action :authenticate_request!
 
       def update
-        byebug
         if params[:update_task]
             task = Task.find(params[:update_task][:id])
             task.update(update_params)
@@ -12,10 +11,23 @@ module Api
         end
       end
 
+      def create
+            # for Development testing use this line : project= Project.find(2)
+            project = Project.find_by(repo_id: params[:new_task][:project_id])
+            task  =  Task.new(create_params)
+            task.project = project
+            task.save
+            render json: task
+      end
+
       private
 
       def update_params
         params.require(:update_task).permit(:id , :content , :description ,:priority ,:status ,:title,:assignees)
+      end
+
+      def create_params
+        params.require(:new_task).permit(:id , :content , :description ,:priority ,:status ,:title,:assignees ,:project_id)
       end
 
     end
