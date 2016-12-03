@@ -22,12 +22,10 @@ const tasksReducer = function(state = {
                 ...state,
                 byId: state.byId.map(task => {
                     if (task.id === action.payload.id) {
-                        return {...task,
-                            title: action.payload.title,
-                            content: action.payload.content,
-                            description: action.payload.description,
-                            priority: action.payload.priority,
-                            status: action.payload.status
+                      let updatedTask  = action.payload ;
+                        return {
+                          ...task,
+                          ...updatedTask
                         }
                     } else {
                         return task
@@ -39,6 +37,15 @@ const tasksReducer = function(state = {
                 byId: [...state.byId, action.payload],
                 allIds: [...state.allIds, action.payload.id],
                 editing: false
+            }
+        case 'DELETE_TASK':
+            let tasks= state.byId.filter(task => task.id !== action.payload )
+            let ids= state.allIds.filter(id =>  id !== action.payload )
+
+            return {
+              ...state,
+              byId: tasks,
+              allIds: ids
             }
 
         default:

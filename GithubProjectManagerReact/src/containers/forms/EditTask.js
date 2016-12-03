@@ -33,8 +33,6 @@ function submit(values,dispatch){
 
 const TaskForm = props => {
 
-  debugger
-
   const renderMenuItem = (user,disable) => {
     return (
       <MenuItem

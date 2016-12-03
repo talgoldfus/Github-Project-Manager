@@ -6,19 +6,15 @@ function updateTask(task){
         method: 'patch',
         headers: { Authorization: localStorage.getItem('token') },
         data: {
-          update_task: {
-          ...task,
-          title: task.title,
-          content: task.content,
-          description: task.description,
-          priority: task.priority,
-          status: task.status
-        }
+          update_task: {...task}
       }
-    }).then(()=>{
+    }).then((response)=>{
+      let taskData = response.data.data
+       let updatedTask = Object.assign({id: parseInt(taskData.id) }, taskData.attributes)
+
     return{
       type: 'UPDATE_TASK',
-      payload: task
+      payload: updatedTask
     }
   })
 }

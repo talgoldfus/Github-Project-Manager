@@ -7,6 +7,7 @@ import { submit } from 'redux-form'
 import TaskInfo from '../components/TaskInfo';
 import TaskFullContainer from './TaskFullContainer';
 import editingTask from '../actions/editingTask'
+import deleteTask from '../actions/deleteTask'
 
 class TaskInfoContainer extends Component {
 
@@ -18,6 +19,7 @@ class TaskInfoContainer extends Component {
     this.handleOpen = this.handleOpen.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.handleSave = this.handleSave.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
     this.handleCloseWhileEditing = this.handleCloseWhileEditing.bind(this)
     this.renderEditorialOptions = this.renderEditorialOptions.bind(this)
   }
@@ -47,6 +49,13 @@ class TaskInfoContainer extends Component {
       )
   }
 
+  handleDelete(dispatch) {
+    if (window.confirm("Are you sure you want to delete this Task? Once confirmed the process is irreversible")) {
+      dispatch(deleteTask(this.props.id))
+    }
+  }
+
+
   renderEditorialOptions() {
     const {dispatch} = this.props
 
@@ -70,6 +79,13 @@ class TaskInfoContainer extends Component {
       }
       else{
         return [
+          <FlatButton
+            label="DELETE TASK"
+            labelPosition="before"
+            secondary={true}
+            icon={<FontIcon className="fa fa-trash" />}
+            onTouchTap={()=> this.handleDelete(dispatch)}
+          />,
           <FlatButton
             label="EDIT"
             labelPosition="before"

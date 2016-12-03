@@ -8,13 +8,7 @@ function newTask(task,project_id){
         data: {
           new_task: {
           ...task,
-          title: task.title,
-          content: task.content,
-          description: task.description,
-          priority: task.priority,
-          status: task.status,
-          project_id: project_id ,
-          assignees: task.assignees
+          project_id: project_id,
         }
       }
     }).then((response)=>{

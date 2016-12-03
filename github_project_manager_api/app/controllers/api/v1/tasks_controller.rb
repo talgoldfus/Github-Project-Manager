@@ -4,11 +4,11 @@ module Api
       before_action :authenticate_request!
 
       def update
-        if params[:update_task]
             task = Task.find(params[:update_task][:id])
             task.update(update_params)
-            render json: {status: 'Task updated successfuly' }
-        end
+            task.collaborators = params[:update_task][:assignees].map {|assignee| User.find_by(username: assignee[:user]).collaborator}
+            task.save
+            render json: task
       end
 
       def create
@@ -20,6 +20,11 @@ module Api
             task.collaborators = params[:new_task][:assignees].map {|assignee| User.find_by(username: assignee[:user]).collaborator}
             task.save
             render json: task
+      end
+
+      def destroy
+         Task.delete(params[:id])
+         render json: "Task successfuly deleted"
       end
 
       private
