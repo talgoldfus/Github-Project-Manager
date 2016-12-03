@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {ListItem} from 'material-ui/List';
 import FontIcon from 'material-ui/FontIcon';
-import AsigneeList from './AsigneeList'
+import AssigneeList from './AssigneeList'
 import Paper from 'material-ui/Paper';
 import {filterIconName} from '../helpers/taskFilters'
 

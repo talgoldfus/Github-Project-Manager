@@ -13,7 +13,8 @@ function newTask(task,project_id){
           description: task.description,
           priority: task.priority,
           status: task.status,
-          project_id: project_id
+          project_id: project_id ,
+          assignees: task.assignees
         }
       }
     }).then((response)=>{

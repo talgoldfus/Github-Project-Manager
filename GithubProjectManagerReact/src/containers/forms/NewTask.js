@@ -1,9 +1,13 @@
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm , FieldArray , formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
 import newTask from '../../actions/newTask'
-import { SubmissionError } from 'redux-form'
-import {TextField , Slider} from 'redux-form-material-ui'
+import MenuItem from 'material-ui/MenuItem'
+import RaisedButton from 'material-ui/RaisedButton';
+import IconButton from 'material-ui/IconButton';
+import ContentRemove from 'material-ui/svg-icons/content/remove-circle-outline';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import {TextField , Slider , SelectField} from 'redux-form-material-ui'
 
 const validate = values => {
   const errors = {}
@@ -20,7 +24,66 @@ function submit(values,dispatch,props){
   dispatch(newTask(values,props.repoId))
 }
 
+
+
 const TaskForm = props => {
+
+  const renderMenuItem = (user,disable) => {
+    return (
+      <MenuItem
+        key={user.username}
+        value={user.username}
+        primaryText={user.username}
+        disabled={disable}
+      />
+     )
+  }
+
+    if (props.collaborators){
+      var assignees = props.collaborators.map(user => {
+        if (props.assignedUsers){
+          let alreadySelected = props.assignedUsers.find(assignee => assignee.user === user.username)
+          return alreadySelected ? renderMenuItem(user,true) : renderMenuItem(user,false)
+        }
+        return renderMenuItem(user,false)
+      })
+    }
+    else {
+      assignees =  <MenuItem value="N/A" primaryText="There are no collaborators for this project"/>
+    }
+
+
+    const renderAssignees = ({ fields }) => (
+      <ul>
+        <li>
+          <RaisedButton
+            label="Assign a collaborator to this task"
+            labelPosition="after"
+            primary={true}
+            onTouchTap={() => fields.push({})}
+            icon={<ContentAdd />}
+            disabled={ (fields.length === assignees.length ) && props.collaborators ? true : false }
+          />
+        </li>
+        {fields.map((assignee, index) =>
+          <li key={index}>
+              <IconButton
+                onTouchTap={() => fields.remove(index)}
+                tooltip="Remove assignee"
+              >
+                <ContentRemove />
+              </IconButton>
+              <Field
+                name={`${assignee}.user`}
+                component={SelectField}
+                >
+                {assignees}
+              </Field>
+          </li>
+        )}
+      </ul>
+    )
+
     return (
       <form onSubmit={props.handleSubmit}>
         <div>
@@ -58,6 +121,15 @@ const TaskForm = props => {
             label="Task Content"
           />
         </div>
+        <div>
+          <h2>Asignees</h2>
+        </div>
+        <div>
+          <FieldArray
+            name="assignees"
+            component={renderAssignees}
+          />
+        </div>
       </form>
     )
 }
@@ -77,9 +149,13 @@ const priority = function(state){
   }
 }
 
+const formValues = formValueSelector('NewTaskForm')
+
 const  mapStateToProps = function(state){
     return ({
       taskPriority: priority(state),
+      assignedUsers: formValues(state, 'assignees'),
+      collaborators : state.project.collaborators,
       repoId: state.project.project_info.repoId
     })
 }

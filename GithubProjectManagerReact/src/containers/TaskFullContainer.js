@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import AsigneeList from '../components/AsigneeList';
+import AssigneeList from '../components/AssigneeList';
 import {connect} from 'react-redux';
 import EditTaskForm from './forms/EditTask'
 
@@ -22,26 +22,32 @@ constructor(props){
                 <h4>{task.description}</h4>
                 <p>{task.content}</p>
               </div>
-              <AsigneeList asignees={task.asignees}/>
+              <AssigneeList assignees={task.assignees}/>
             </div>
           )
   }
 
   renderEditTaskInfo(task){
+    let serializedTask = Object.assign({}, task, {
+      assignees: task.assignees.map(user => {
+        return {user: user.username}
+     })
+  })
     return(
             <div>
-              <EditTaskForm initialValues={task} />
-              <AsigneeList asignees={task.asignees}/>
+              <EditTaskForm initialValues={serializedTask} />
             </div>
           )
   }
 
   render(){
     const task = this.props.fullDetails(this.props.id)
+    const showTask = this.renderTaskInfo(task)
+    const editTask = this.renderEditTaskInfo(task)
 
     return(
       <div>
-        {this.props.edit ? this.renderEditTaskInfo(task) : this.renderTaskInfo(task) }
+        {this.props.edit ? editTask : showTask }
       </div>
     )
   }
