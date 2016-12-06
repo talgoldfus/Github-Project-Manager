@@ -19,7 +19,7 @@ export default (store)=>{
   return(
         <div>
           <Route path="/" component={App}>
-            <Route path="home" component={AllUserProjects} />
+            <Route path="home" component={AllUserProjects} onEnter={authorize(store)} />
             <Route path="signin" component={LogInForm} />
             <Route path="signup" component={SignupForm} />
             <Route path="connected" component={GithubProjectSelector} onEnter={authorize(store)} />

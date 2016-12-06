@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Tabs, Tab} from 'material-ui/Tabs';
 import ProjectList from '../components/ProjectList'
 import getAllUserProjects from '../actions/getAllUserProjects'
+import AddProjectButton from '../components/AddProjectButton'
 
 class AllUserProjects extends Component {
 
@@ -45,6 +46,7 @@ class AllUserProjects extends Component {
             </div>
           </Tab>
         </Tabs>
+        <AddProjectButton/>
       </div>
     );
   }

@@ -24,6 +24,8 @@ module Api
         if !project
           project = Project.create(repo_id: params[:project][:id], title: params[:project][:title])
         end
+        project.project_managers.push(@current_user.project_manager)
+        project.save
         render json: {project_id: project.id}
       end
 

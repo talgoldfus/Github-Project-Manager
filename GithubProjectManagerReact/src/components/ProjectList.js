@@ -5,21 +5,21 @@ import Subheader from 'material-ui/Subheader';
 import FontIcon from 'material-ui/FontIcon';
 import {List} from 'material-ui/List';
 import Paper from 'material-ui/Paper';
+import { browserHistory } from 'react-router'
 
 
 
 class ProjectList extends Component {
 
   render_project(project){
-    debugger
     return (
-        <Paper zDepth={3} >
-        <ListItem
-          leftAvatar={<FontIcon className="fa fa-github" />}
-          primaryText={project.title}
-          key={project.id}
-          value={project.id}
-        />
+        <Paper zDepth={3} key={project.id}>
+          <ListItem
+            leftAvatar={<FontIcon className="fa fa-github" />}
+            primaryText={project.title}
+            value={project.id}
+            onTouchTap={()=> browserHistory.push(`/projects/${project.id}`)}
+          />
         </Paper>
     )
   }

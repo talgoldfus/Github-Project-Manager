@@ -5,7 +5,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import TaskLists from './TaskLists'
 import getProject from '../actions/getProject'
 import {filterAllTasks} from '../helpers/taskFilters'
-import AddTaskButton from '../components/AddTaskButton'
+import AddTaskButton from './AddTaskButton'
 
 class ProjectPage extends Component {
 

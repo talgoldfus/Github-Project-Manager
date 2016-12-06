@@ -3,7 +3,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import NewTaskForm from '../containers/forms/NewTask'
+import NewTaskForm from './forms/NewTask'
 import {connect} from 'react-redux';
 import { submit } from 'redux-form'
 
@@ -82,6 +82,4 @@ function mapStateToProps(state){
   return {form: state.form}
 }
 
-const AddTaskButtonContainer = connect(mapStateToProps,null)(AddTaskButton)
-
-export default AddTaskButtonContainer;
+export default connect(mapStateToProps,null)(AddTaskButton)
