@@ -4,6 +4,10 @@ module Api
       before_action :authenticate_request!
 
 
+      def index
+        render json: {manager: @current_user.managed_projects , collaborator: @current_user.collaborator_projects}
+      end
+
       def show
         project = Project.find(params[:id])
         if (@current_user.all_projects.find{|p| p.id == project.id})

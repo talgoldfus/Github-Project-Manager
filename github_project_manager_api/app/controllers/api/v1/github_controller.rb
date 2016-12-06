@@ -12,7 +12,7 @@ module Api
              :client_secret => ENV['gh_client_secret'],
              :code => user_code},headers: {accept: 'application/json'})
              if response["access_token"]
-               username = GithubActions.new(response["access_token"]).user.login
+               username = Adapter::Github.new(response["access_token"]).user.login
                user = User.find_by(username: username )
                if user
                  user.update(gh_token: response["access_token"])
@@ -28,7 +28,7 @@ module Api
       end
 
      def show
-       action = GithubActions.new(@current_user.gh_token)
+       action = Adapter::Github.new(@current_user.gh_token)
        result = action.get_results(params[:id],params[:q])
        render json: result
      end

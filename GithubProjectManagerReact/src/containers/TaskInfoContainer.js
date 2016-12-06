@@ -81,15 +81,17 @@ class TaskInfoContainer extends Component {
         return [
           <FlatButton
             label="DELETE TASK"
-            labelPosition="before"
+            labelPosition="after"
             secondary={true}
+            style={ {float: "left"} }
             icon={<FontIcon className="fa fa-trash" />}
             onTouchTap={()=> this.handleDelete(dispatch)}
           />,
           <FlatButton
             label="EDIT"
-            labelPosition="before"
+            labelPosition="after"
             primary={true}
+            style={ {float: "left"} }
             icon={<FontIcon className="fa fa-pencil" />}
             onTouchTap={()=> dispatch(editingTask(true))}
           />,

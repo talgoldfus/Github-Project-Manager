@@ -6,6 +6,7 @@ import LogInForm from  './containers/forms/LogIn'
 import GithubCallback from './connectors/GithubCallback'
 import GithubProjectSelector from './containers/GithubProjectSelector'
 import ProjectPage from './containers/ProjectPage'
+import AllUserProjects from './containers/AllUserProjects'
 
 const authorize = (store) => {
   return (nextState, replace) => {
@@ -18,6 +19,7 @@ export default (store)=>{
   return(
         <div>
           <Route path="/" component={App}>
+            <Route path="home" component={AllUserProjects} />
             <Route path="signin" component={LogInForm} />
             <Route path="signup" component={SignupForm} />
             <Route path="connected" component={GithubProjectSelector} onEnter={authorize(store)} />

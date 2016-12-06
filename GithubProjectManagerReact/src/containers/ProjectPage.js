@@ -7,7 +7,7 @@ import getProject from '../actions/getProject'
 import {filterAllTasks} from '../helpers/taskFilters'
 import AddTaskButton from '../components/AddTaskButton'
 
-class ProjectPage extends React.Component {
+class ProjectPage extends Component {
 
   componentWillMount(){
     this.props.getProject(parseInt(this.props.routeParams.id))
@@ -33,7 +33,7 @@ class ProjectPage extends React.Component {
 
     return (
       <div>
-        <p>ProjectPage</p>
+        <h1>Project Name</h1>
         <Tabs
           value={this.state.value}
           onChange={this.handleChange}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{ Component } from 'react';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
 import {blue300, indigo900} from 'material-ui/styles/colors';
@@ -15,7 +15,7 @@ const styles = {
 
 
 
-export default class assigneeList extends React.Component {
+export default class assigneeList extends Component {
 
   constructor(props){
     super(props)

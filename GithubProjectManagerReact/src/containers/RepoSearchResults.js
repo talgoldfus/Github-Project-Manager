@@ -19,8 +19,7 @@ class RepoSearchResults extends Component {
           value={result.id}
           secondaryText={
             <p>
-              <span style={{color: darkBlack}}>{result.language}</span> --
-              {result.description}
+              <span style={{color: darkBlack}}>{result.description}</span>
             </p>
           }
           secondaryTextLines={2}

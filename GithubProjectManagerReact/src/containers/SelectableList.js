@@ -16,13 +16,17 @@ function wrapState(ComposedComponent) {
     }
 
     handleRequestChange = (event, index) => {
-      const {handleChangeStartWithEventIndex,handleChangeStartWithIndex,handleChangeEnd} = this.props
-      handleChangeStartWithIndex ? handleChangeStartWithIndex(index) : null
-      handleChangeStartWithEventIndex ? handleChangeStartWithEventIndex(event, index) : null
-      this.setState({
-        selectedIndex: index,
-      });
-      handleChangeEnd ? handleChangeEnd() : null
+        const {
+            handleChangeStartWithEventIndex,
+            handleChangeStartWithIndex,
+            handleChangeEnd
+        } = this.props
+        handleChangeStartWithIndex ? handleChangeStartWithIndex(index) : null
+        handleChangeStartWithEventIndex ? handleChangeStartWithEventIndex(event, index) : null
+        this.setState({
+            selectedIndex: index,
+        });
+        handleChangeEnd ? handleChangeEnd() : null
     };
 
     render() {

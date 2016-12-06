@@ -21,4 +21,8 @@ class User < ApplicationRecord
     self.project_manager.projects
   end
 
+  def collaborator_projects
+    self.collaborator.projects
+  end
+
 end

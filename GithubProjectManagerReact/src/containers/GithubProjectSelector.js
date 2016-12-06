@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Component} from 'react';
 import {connect} from 'react-redux'
 import {
   Step,
@@ -13,7 +13,7 @@ import RepoSearchResults from './RepoSearchResults'
 import completedStep from '../actions/completedStep'
 import findOrCreateProject from '../actions/findOrCreateProject'
 
-class GithubProjectSelector extends React.Component {
+class GithubProjectSelector extends Component {
 
   constructor(props){
     super(props);

@@ -13,8 +13,8 @@ module Api
 
       def create
             # for Development testing use this line :
-             project= Project.find(2)
-            # project = Project.find_by(repo_id: params[:new_task][:project_id])
+            # project= Project.find(2)
+            project = Project.find_by(repo_id: params[:new_task][:project_id])
             task  =  Task.new(create_params)
             task.project = project
             task.collaborators = params[:new_task][:assignees].map {|assignee| User.find_by(username: assignee[:user]).collaborator}
