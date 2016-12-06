@@ -13,7 +13,6 @@ render(){
       <MuiThemeProvider muiTheme={getMuiTheme()} >
         <div className="App">
               <NavBarMenu />
-              <ConnectGithubButton />
               {this.props.children}
         </div>
       </ MuiThemeProvider>

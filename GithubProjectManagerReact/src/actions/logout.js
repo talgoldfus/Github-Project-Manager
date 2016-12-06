@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { batchActions } from 'redux-batched-actions';
+import {browserHistory} from 'react-router'
 
 const logoutActionAction = () => {
   return axios({
@@ -10,6 +11,7 @@ const logoutActionAction = () => {
     }
   ).then((response)=>{
           localStorage.clear()
+          browserHistory.push('/')
           return batchActions(
             [{type: 'LOGGED_IN', payload: false},
             {type: 'GH_CONNECTED', payload: false}])

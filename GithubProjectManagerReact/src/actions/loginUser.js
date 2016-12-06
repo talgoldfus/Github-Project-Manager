@@ -10,8 +10,8 @@ export default function loginUserAction(formProps,dispatch) {
   ).then((response)=>{
       if (response.data.auth_token){
         localStorage.setItem('token', response.data.auth_token)
-        browserHistory.push('/')
         dispatch({type: 'LOGGED_IN', payload: true})
+        browserHistory.push('/home')
       }
     }).catch((error)=>{
       if (error.response.status === 500){
