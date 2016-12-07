@@ -3,23 +3,13 @@ module Api
     class UsersController < ApplicationController
 
       def create
-        # if params[:vallidation]
-        #    user = User.find_by(username: params[:vallidation][:username])
-        #    if user
-        #      render json: {status: 'failed' }
-        #    else
-        #     render json: {status: 'successful' }
-        #    end
         if params[:signup]
-            user = User.create(signup_params)
-            if user
-              username = JsonWebToken.decode(params[:signup]["temp_token"])[:username]
-              token = JsonWebToken.decode(params[:signup]["temp_token"])[:gh_token]
-              user.update(gh_token: token , username: username )
-              render json: {status: 'successful' }
-            else
-              render json: {status: 'failed' }
-            end
+            username = JsonWebToken.decode(params[:signup]["temp_token"])[:username]
+            token = JsonWebToken.decode(params[:signup]["temp_token"])[:gh_token]
+            user = User.find_by(username: username)
+            user && user.authenticate("pending") ? user.update(update_params) : user = User.create(signup_params)
+            user.update(gh_token: token)
+            render json: {message: "User crreated successfully"}
         end
       end
 
@@ -27,6 +17,10 @@ module Api
 
       def signup_params
         params.require(:signup).permit(:username, :password, :password_confirmation)
+      end
+
+      def update_params
+        params.require(:signup).permit(:password, :password_confirmation)
       end
 
     end

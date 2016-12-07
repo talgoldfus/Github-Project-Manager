@@ -1,7 +1,6 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import {TextField} from 'redux-form-material-ui'
-import asyncValidate from '../../formValidations/SignUpFormValidation'
 import signup from '../../actions/signup'
 
 const validate = values => {
@@ -12,10 +11,7 @@ const validate = values => {
       errors[ field ] = 'Required'
     }
   })
-  if (values.username && values.username.length<8) {
-    errors.username = 'Username must be atleast 8 characters long'
-  }
-  else if (values.password && values.password.length<8) {
+  if (values.password && values.password.length<8) {
     errors.password = 'Password must be atleast 8 characters long'
   }
   else if (values.password !== values.passwordConfirmation) {
@@ -46,9 +42,7 @@ const SignupForm = props => {
 
 const form = reduxForm({
   form: 'SignupForm',
-  validate,
-  asyncValidate,
-  asyncBlurFields: [ 'username' ]
+  validate
 }
 )(SignupForm)
 

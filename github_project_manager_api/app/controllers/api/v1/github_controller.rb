@@ -14,7 +14,7 @@ module Api
              if response["access_token"]
                username = Adapter::Github.new(response["access_token"]).user.login
                user = User.find_by(username: username )
-               if user
+               if !user.authenticate("pending")
                  user.update(gh_token: response["access_token"])
                  render json: {username: username ,connected:true ,existing_user:true}
                else

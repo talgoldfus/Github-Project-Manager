@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { batchActions } from 'redux-batched-actions';
-import { browserHistory } from 'react-router'
 import {redirectToHome} from '../helpers/errorHandlers'
 
 const getProject = (id) => {
@@ -11,14 +10,20 @@ const getProject = (id) => {
     data: {id}
   }).then((response)=>{
       let project =  response.data.data.attributes
-      let tasks  = response.data.included.map(task=>{
-        return Object.assign({id: parseInt(task.id) }, task.attributes)
-      })
+      if (response.data.included){
+        var tasks  = response.data.included.map(task => {
+          return Object.assign({id: parseInt(task.id) }, task.attributes)
+        })
+      }
+      else{
+         tasks = []
+      }
+      debugger
       return batchActions([
           {
             type:'GET_PROJECT',
             payload:{
-              project_info: {title: project.title , repoId: project.repoId },
+              project_info: {title: project.title , repoId: project.repo_id },
               accessLevel: project.access_level,
               collaborators: project.collaborators
             }
