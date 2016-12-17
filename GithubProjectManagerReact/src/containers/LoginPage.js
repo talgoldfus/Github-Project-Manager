@@ -4,7 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import {connect} from 'react-redux';
 import {browserHistory} from 'react-router'
-import ConnectGithubButton from './ConnectGithubButtonContainer';
+import ConnectGithubButton from './ConnectGithubButton';
 import LogInForm from  './forms/LogIn'
 
 const LoginPage = props => {

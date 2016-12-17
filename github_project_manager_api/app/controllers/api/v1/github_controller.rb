@@ -4,6 +4,10 @@ module Api
 
      before_action :requireAuthentication
 
+      def index
+        byebug
+      end
+
       def create
           if params[:code]
             user_code = params[:code]

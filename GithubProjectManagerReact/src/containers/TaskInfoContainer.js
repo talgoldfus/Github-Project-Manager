@@ -8,6 +8,7 @@ import TaskInfo from '../components/TaskInfo';
 import TaskFullContainer from './TaskFullContainer';
 import editingTask from '../actions/editingTask'
 import deleteTask from '../actions/deleteTask'
+import updateTask from '../actions/updateTask'
 
 class TaskInfoContainer extends Component {
 
@@ -32,32 +33,33 @@ class TaskInfoContainer extends Component {
     this.setState({open: false});
   };
 
-  handleCloseWhileEditing(dispatch){
+  handleCloseWhileEditing(){
     this.setState({open: false})
-    dispatch(editingTask(false))
+    this.props.editingTask(false)
   }
 
-  handleSave(dispatch) {
+  handleSave() {
   const submitForm = new Promise(resolve => {
             resolve(
-                dispatch(submit('EditTaskForm'))
+                this.props.submit('EditTaskForm')
             )
         })
 
   submitForm.then(
-          () => { dispatch(editingTask(false))}
+          () => { this.props.editingTask(false)}
       )
   }
 
-  handleDelete(dispatch) {
+  handleDelete() {
     if (window.confirm("Are you sure you want to delete this Task? Once confirmed the process is irreversible")) {
-      dispatch(deleteTask(this.props.id))
+      this.props.deleteTask(this.props.id)
     }
   }
 
 
   renderEditorialOptions() {
     const {dispatch} = this.props
+    const task = this.props.task.byId.find(task=> task.id === this.props.id)
 
     if(this.props.accessLevel === 'manager'){
       if (this.props.editing){
@@ -66,13 +68,13 @@ class TaskInfoContainer extends Component {
             label="Save"
             primary={true}
             keyboardFocused={true}
-            onTouchTap={()=>this.handleSave(dispatch) }
+            onTouchTap={()=>this.handleSave(dispatch)}
           />,
           <FlatButton
             label="Close"
             primary={true}
             keyboardFocused={true}
-            onTouchTap={()=>this.handleCloseWhileEditing(dispatch)}
+            onTouchTap={this.handleCloseWhileEditing}
           />,
 
         ]
@@ -85,7 +87,7 @@ class TaskInfoContainer extends Component {
             secondary={true}
             style={ {float: "left"} }
             icon={<FontIcon className="fa fa-trash" />}
-            onTouchTap={()=> this.handleDelete(dispatch)}
+            onTouchTap={this.handleDelete}
           />,
           <FlatButton
             label="EDIT"
@@ -93,7 +95,7 @@ class TaskInfoContainer extends Component {
             primary={true}
             style={ {float: "left"} }
             icon={<FontIcon className="fa fa-pencil" />}
-            onTouchTap={()=> dispatch(editingTask(true))}
+            onTouchTap={()=> this.props.editingTask(true)}
           />,
           <FlatButton
             label="Close"
@@ -105,14 +107,54 @@ class TaskInfoContainer extends Component {
       }
     }
     else{
-      return(
-        <FlatButton
-        label="Close"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.handleClose}
-        />
-      )
+      if (task.assignees.find(user => user.username === this.props.user)){
+        let actions = [
+          <FlatButton
+          label="Close"
+          primary={true}
+          keyboardFocused={true}
+          onTouchTap={this.handleClose}
+          />
+        ]
+
+        let serializedAssignees = task.assignees.map(user => {
+          return {
+            user: user.username
+          }})
+
+        task.status === "todo" ? actions.unshift(
+          <FlatButton
+          label="Change Task Status To In-Progress"
+          labelPosition="after"
+          primary={true}
+          style={ {float: "left"} }
+          icon={<FontIcon className="fa fa-spinner" />}
+          onTouchTap={()=> this.props.updateTask({...task, assignees:serializedAssignees , status:"inProgress"})}
+          />
+        ) : null
+
+        task.status === "inProgress" ? actions.unshift(
+          <FlatButton
+          label="Submit Task For Review"
+          labelPosition="after"
+          primary={true}
+          style={ {float: "left"} }
+          icon={<FontIcon className="fa fa-check-square-o" />}
+          onTouchTap={()=> this.props.updateTask({...task, assignees:serializedAssignees , status:"inReview"})}
+          />
+        ) : null
+        return actions
+      }
+      else{
+        return(
+          <FlatButton
+          label="Close"
+          primary={true}
+          keyboardFocused={true}
+          onTouchTap={this.handleClose}
+          />
+        )
+      }
     }
   }
 
@@ -146,11 +188,17 @@ class TaskInfoContainer extends Component {
 function mapStateToProps(state) {
   return {
     accessLevel: state.project.accessLevel,
-    editing: state.tasks.editing
+    editing: state.tasks.editing,
+    task: state.tasks,
+    user: state.authentication.user
   }
 }
 
-const ConnectedTaskInfoContainer = connect(mapStateToProps)(TaskInfoContainer)
+const ConnectedTaskInfoContainer = connect(mapStateToProps,{
+  deleteTask,
+  editingTask,
+  updateTask,
+  submit})(TaskInfoContainer)
 
 
 export default ConnectedTaskInfoContainer;

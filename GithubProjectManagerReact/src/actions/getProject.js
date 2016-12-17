@@ -18,7 +18,6 @@ const getProject = (id) => {
       else{
          tasks = []
       }
-      debugger
       return batchActions([
           {
             type:'GET_PROJECT',

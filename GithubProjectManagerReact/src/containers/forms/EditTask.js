@@ -40,7 +40,7 @@ const TaskForm = props => {
         value={user.username}
         primaryText={user.username}
         disabled={disable}
-        />
+      />
      )
   }
 

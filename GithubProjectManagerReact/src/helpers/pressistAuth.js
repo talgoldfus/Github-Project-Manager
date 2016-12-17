@@ -14,7 +14,9 @@ const loggedInWithToken = ()=>{
       return {
         authenticated: response.data.status === 'Valid' ? true : false ,
         connected: response.data.connected ,
-        error: ''}
+        error: '',
+        user: response.data.user
+      }
       })
     .catch( error => {
       return {

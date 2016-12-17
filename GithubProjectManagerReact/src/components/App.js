@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import NavBarMenu from './NavBarMenu';
-import ConnectGithubButton from '../containers/ConnectGithubButtonContainer';
+import ConnectGithubButton from '../containers/ConnectGithubButton';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 

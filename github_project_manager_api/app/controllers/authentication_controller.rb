@@ -21,7 +21,7 @@ class AuthenticationController < ApplicationController
    if current_user
      render json: {
        status: 'Valid' ,
-       user: current_user.id ,
+       user: current_user.username ,
        connected: current_user.gh_token ? true : false
      }
    else

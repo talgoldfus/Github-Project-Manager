@@ -10,7 +10,10 @@ export default function loginUserAction(formProps,dispatch) {
   ).then((response)=>{
       if (response.data.auth_token){
         localStorage.setItem('token', response.data.auth_token)
-        dispatch({type: 'LOGGED_IN', payload: true})
+        dispatch({type: 'LOGGED_IN', payload:{
+          loggedIn: true,
+          username: response.data.user.username }
+        })
         browserHistory.push('/home')
       }
     }).catch((error)=>{

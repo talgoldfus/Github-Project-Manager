@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       post 'github-callback' => 'github#create'
       get 'action/:id' => 'github#show'
+      get 'test' => 'github#index'
       resources :users
       resources :projects
       resources :tasks

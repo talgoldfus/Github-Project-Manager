@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 function updateTask(task){
+  debugger
     return axios({
         url: `http://localhost:3000/api/v1/tasks/${task.id}`,
         method: 'patch',
@@ -17,6 +18,8 @@ function updateTask(task){
       payload: updatedTask
     }
   })
+
+
 }
 
 
