@@ -62,7 +62,7 @@ const TaskForm = props => {
             primary={true}
             onTouchTap={() => fields.push({})}
             icon={<ContentAdd />}
-            disabled={ (fields.length === assignees.length ) && props.collaborators }
+            disabled={ ( (fields.length === assignees.length ) && props.collaborators ) || props.accessLevel === "collaborator" }
           />
         </li>
         {fields.map((assignee, index) =>
@@ -156,7 +156,8 @@ const  mapStateToProps = function(state){
       taskPriority: priority(state),
       assignedUsers: formValues(state, 'assignees'),
       collaborators : state.project.collaborators,
-      repoId: state.project.project_info.repoId
+      repoId: state.project.project_info.repoId,
+      accessLevel: state.project.accessLevel
     })
 }
 
