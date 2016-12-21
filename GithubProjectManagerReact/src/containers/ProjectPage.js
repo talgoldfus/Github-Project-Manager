@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import { withRouter } from 'react-router'
 import {Tabs, Tab} from 'material-ui/Tabs';
-import TaskLists from './TaskLists'
+import ProjectTaskList from './ProjectTaskList'
 import getProject from '../actions/getProject'
 import {filterAllTasks} from '../helpers/taskFilters'
 import AddTaskButton from './AddTaskButton'
@@ -40,25 +40,25 @@ class ProjectPage extends Component {
         >
           <Tab label="Todo" value="todo" >
             <div>
-              <TaskLists tasksList={todoTasks} />
+              <ProjectTaskList tasksList={todoTasks} />
               <AddTaskButton />
             </div>
           </Tab>
           <Tab label="In-Progress" value="inProgress" >
             <div>
-              <TaskLists tasksList={inProgressTasks} />
+              <ProjectTaskList tasksList={inProgressTasks} />
               <AddTaskButton />
             </div>
           </Tab>
           <Tab label="In-Review" value="inReview">
             <div>
-              <TaskLists tasksList={inReviewTasks} />
+              <ProjectTaskList tasksList={inReviewTasks} />
               <AddTaskButton />
             </div>
           </Tab>
           <Tab label="Completed" value="completed">
             <div>
-              <TaskLists tasksList={completedTasks} />
+              <ProjectTaskList tasksList={completedTasks} />
               <AddTaskButton />
             </div>
           </Tab>

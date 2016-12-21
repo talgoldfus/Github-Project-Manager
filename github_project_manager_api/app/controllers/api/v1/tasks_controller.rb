@@ -3,6 +3,10 @@ module Api
     class TasksController < ApplicationController
       before_action :authenticate_request!
 
+      def index
+        render json: @current_user.collaborator_tasks , each_serializer: Tasks::IndexSerializer ,key_transform: :underscore
+      end
+
       def update
             task = Task.find(params[:update_task][:id])
             task.update(update_params)

@@ -8,7 +8,7 @@ import Divider from 'material-ui/Divider';
 import {sortTasksByPriority} from '../helpers/taskFilters'
 
 
-class TaskList extends Component {
+class ProjectTaskList extends Component {
 
   constructor(props) {
     super(props);
@@ -40,7 +40,7 @@ class TaskList extends Component {
 
   render(){
     const tasks = this.props.tasksList || []
-    const taskList = sortTasksByPriority(tasks,this.state.order).map( task => {
+    const ProjectTaskList = sortTasksByPriority(tasks,this.state.order).map( task => {
       return this.renderTask(task)
     },this)
 
@@ -59,7 +59,7 @@ class TaskList extends Component {
                 />
             </Toolbar>
             <List>
-              {taskList}
+              {ProjectTaskList}
               <Divider />
             </List>
           </div>
@@ -67,4 +67,4 @@ class TaskList extends Component {
   }
 }
 
-export default TaskList
+export default ProjectTaskList

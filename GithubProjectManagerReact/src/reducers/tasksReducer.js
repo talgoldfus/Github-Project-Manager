@@ -1,6 +1,7 @@
 const tasksReducer = function(state = {
         byId: [],
         allIds: [],
+        allUserTasks:[],
         editing: false
     },
     action) {
@@ -47,6 +48,11 @@ const tasksReducer = function(state = {
               byId: tasks,
               allIds: ids
             }
+        case 'ALL_USER_TASKS':
+           return {
+             ...state,
+             allUserTasks: action.payload
+           }
 
         default:
             return state;

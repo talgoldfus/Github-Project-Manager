@@ -1,12 +1,12 @@
 import  React from 'react'
 import { Route } from 'react-router'
 import App from './components/App'
+import UserHomePage from './components/UserHomePage'
 import SignupForm from  './containers/forms/Signup'
 import LoginPage from  './containers/LoginPage'
 import GithubCallback from './connectors/GithubCallback'
 import GithubProjectSelector from './containers/GithubProjectSelector'
 import ProjectPage from './containers/ProjectPage'
-import AllUserProjects from './containers/AllUserProjects'
 
 const authorize = (store) => {
   return (nextState, replace) => {
@@ -19,7 +19,7 @@ export default (store)=>{
   return(
         <div>
           <Route path="/" component={App}>
-            <Route path="home" component={AllUserProjects} onEnter={authorize(store)} />
+            <Route path="home" component={UserHomePage} onEnter={authorize(store)} />
             <Route path="signin" component={LoginPage} />
             <Route path="signup" component={SignupForm} />
             <Route path="connected" component={GithubProjectSelector} onEnter={authorize(store)} />
