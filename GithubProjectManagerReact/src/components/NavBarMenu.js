@@ -9,6 +9,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Divider from 'material-ui/Divider';
 import LoginButton from './LoginButton'
 import LoggedButton from './LoggedButton'
+import MenuHeaderProfile from './MenuHeaderProfile'
 
 
 
@@ -45,6 +46,7 @@ class NavBarMenu extends Component {
           open={this.state.open}
           onRequestChange={(open) => this.setState({open})}
         >
+          <MenuHeaderProfile />
           <Menu>
               <MenuItem primaryText="My Tasks"/>
               <MenuItem primaryText="My Projects"  />

@@ -13,13 +13,12 @@ import loggedInWithToken from './helpers/pressistAuth'
 
 
 loggedInWithToken().then((state)=>{
-
   injectTapEventPlugin();
 
   let createStoreWithMiddleware = applyMiddleware(reduxThunk, ReduxPromise)(createStore)
   let store = createStoreWithMiddleware(
     enableBatching(reducer),
-    {authentication: state},
+    state,
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )
 

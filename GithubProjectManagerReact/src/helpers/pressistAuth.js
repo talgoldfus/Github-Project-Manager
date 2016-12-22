@@ -11,20 +11,23 @@ const loggedInWithToken = ()=>{
       }
     )
     .then((response)=>{
-      return {
-        authenticated: response.data.status === 'Valid' ? true : false ,
-        connected: response.data.connected ,
-        error: '',
+      return{
+        authentication: {
+          authenticated: response.data.status === 'Valid' ? true : false ,
+          connected: response.data.connected ,
+          error: ''
+        } ,
         user: response.data.user
       }
-      })
-    .catch( error => {
+    }, error => {
       return {
-        authenticated: null,
-        connected: null ,
-        error: error }
+        authentication: {
+          authenticated: null,
+          connected: null,
+          error: error
+        }
       }
-    )
+    })
   }
   else{
       return new Promise(resolve => {

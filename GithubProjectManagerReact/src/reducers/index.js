@@ -4,6 +4,7 @@ import authReducer from './authReducer'
 import githubReducer from './githubReducer'
 import projectReducer from './projectReducer'
 import tasksReducer from './tasksReducer'
+import userReducer from './userReducer'
 
 
 const rootReducer = combineReducers({
@@ -11,7 +12,8 @@ const rootReducer = combineReducers({
   form: formReducer,
   github: githubReducer,
   project:projectReducer,
-  tasks:tasksReducer
+  tasks:tasksReducer,
+  user: userReducer
 })
 
 

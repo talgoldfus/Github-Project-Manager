@@ -4,8 +4,7 @@ const authReducer =  function(state = {}, action){
     case 'LOGGED_IN':
       return {
         ...state,
-        user: action.payload.username ,
-        authenticated: action.payload.loggedIn };
+        authenticated: action.payload };
     case 'AUTH_ERROR':
       return { ...state, error: action.payload };
     case 'GH_CONNECTED':

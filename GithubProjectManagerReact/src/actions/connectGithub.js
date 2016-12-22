@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { browserHistory } from 'react-router'
+import {redirectToHome} from '../helpers/errorHandlers'
 
 const connectGithubAction = (ghCode) => {
     return axios({
@@ -25,7 +26,7 @@ const connectGithubAction = (ghCode) => {
             }
         })
         .catch(error => {
-            browserHistory.push('/')
+            redirectToHome()
             return {
                 type: 'GH_CONNECTED',
                 payload: false

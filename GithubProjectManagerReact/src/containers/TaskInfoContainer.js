@@ -190,7 +190,7 @@ function mapStateToProps(state) {
     accessLevel: state.project.accessLevel,
     editing: state.tasks.editing,
     task: state.tasks,
-    user: state.authentication.user
+    user: state.user.username
   }
 }
 

@@ -13,7 +13,8 @@ const logoutActionAction = () => {
           localStorage.clear()
           browserHistory.push('/')
           return batchActions(
-            [{type: 'LOGGED_IN', payload: {loggedIn:false} },
+            [{type: 'LOGGED_IN', payload: false },
+            {type: 'LOGOUT_USER', payload: null },
             {type: 'GH_CONNECTED', payload: false}])
     })
   }

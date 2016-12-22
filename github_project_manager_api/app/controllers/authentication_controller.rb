@@ -21,8 +21,11 @@ class AuthenticationController < ApplicationController
    if current_user
      render json: {
        status: 'Valid' ,
-       user: current_user.username ,
-       connected: current_user.gh_token ? true : false
+       connected: current_user.gh_token ? true : false ,
+       user: {
+         username: current_user.username ,
+         profile_picture: current_user.profile_picture
+       }
      }
    else
      render json: {status: 'Expired' }
@@ -36,7 +39,12 @@ class AuthenticationController < ApplicationController
     connected = user.gh_token ? true : false
     {
       auth_token: JsonWebToken.encode({user_id: user.id}),
-      user: {id: user.id, username: user.username ,connected: connected}
+      user: {
+        id: user.id,
+        username: user.username ,
+        profile_picture: user.profile_picture ,
+        connected: connected
+      }
     }
   end
 

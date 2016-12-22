@@ -18,13 +18,15 @@ module Api
              if response["access_token"]
                username = Adapter::Github.new(response["access_token"]).user.login
                user = User.find_by(username: username )
-               if !user.authenticate("pending")
-                 user.update(gh_token: response["access_token"])
-                 render json: {username: username ,connected:true ,existing_user:true}
-               else
-                 temp_token = JsonWebToken.encode({username:username,gh_token: response["access_token"]})
-                 render json: {username: username ,connected:true ,existing_user:false , temp_token: temp_token}
-               end
+                 if !user || user.authenticate("pending")
+                   # Need to refracture the process here by adding a creation of a new "pending user"
+                   # if he does not exsist which will mkae it unecessary to send the encoded token.
+                   temp_token = JsonWebToken.encode({username:username, gh_token: response["access_token"]})
+                   render json: {username: username ,connected:true ,existing_user:false , temp_token: temp_token}
+                 else
+                   user.update(gh_token: response["access_token"])
+                   render json: {username: username ,connected:true ,existing_user:true}
+                 end
              else
                 render status: 404, json: "User not found"
              end

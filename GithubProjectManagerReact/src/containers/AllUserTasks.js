@@ -29,7 +29,6 @@ class AllUserTasks extends Component {
 
     const tasks = this.props.tasks || []
     const {todoTasks,inProgressTasks,inReviewTasks,completedTasks} = filterAllTasks(tasks)
-    debugger
 
     return (
       <div>
