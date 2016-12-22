@@ -10,6 +10,7 @@ import Divider from 'material-ui/Divider';
 import LoginButton from './LoginButton'
 import LoggedButton from './LoggedButton'
 import MenuHeaderProfile from './MenuHeaderProfile'
+import logout from '../actions/logout'
 
 
 
@@ -20,6 +21,13 @@ class NavBarMenu extends Component {
     this.state = {open: false};
     this.handleToggle.bind(this)
     this.handleClose.bind(this)
+    this.logout.bind(this)
+  }
+
+  logout(){
+    debugger
+    this.props.logout()
+    this.handleClose()
   }
 
   handleToggle() {
@@ -52,7 +60,7 @@ class NavBarMenu extends Component {
               <MenuItem primaryText="My Projects"  />
               <Divider />
               <MenuItem primaryText="Add a project"/>
-              <MenuItem primaryText="Logout"  />
+              <MenuItem primaryText="Logout" onTouchTap={()=>this.logout()} />
           </Menu>
        </Drawer>
       </div>
@@ -64,6 +72,6 @@ function mapStateToProps(state ) {
     return {logged: state.authentication.authenticated }
 }
 
-const NavBarMenuContainer = connect(mapStateToProps)(NavBarMenu)
+const NavBarMenuContainer = connect(mapStateToProps,{logout})(NavBarMenu)
 
 export default NavBarMenuContainer

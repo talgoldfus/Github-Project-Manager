@@ -14,7 +14,7 @@ const logoutActionAction = () => {
           browserHistory.push('/')
           return batchActions(
             [{type: 'LOGGED_IN', payload: false },
-            {type: 'LOGOUT_USER', payload: null },
+            {type: 'LOG_OUT_USER', payload: null },
             {type: 'GH_CONNECTED', payload: false}])
     })
   }

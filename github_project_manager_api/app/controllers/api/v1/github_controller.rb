@@ -19,7 +19,7 @@ module Api
                username = Adapter::Github.new(response["access_token"]).user.login
                user = User.find_or_create_by(username: username){|new_user| new_user.password="pending"}
                user.update(gh_token: response["access_token"])
-               render json: {username: username ,connected:true ,existing_user: user.authenticate("pending")}
+               render json: {username: username ,connected:true ,existing_user: !user.authenticate("pending")}
              else
                 render status: 404, json: "User not found"
              end
