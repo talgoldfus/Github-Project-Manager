@@ -9,10 +9,10 @@ import { Router,browserHistory } from 'react-router'
 import Routes from './routes'
 import injectTapEventPlugin from "react-tap-event-plugin";
 import {enableBatching} from 'redux-batched-actions';
-import loggedInWithToken from './helpers/pressistAuth'
+import persistState from './helpers/persistState'
 
 
-loggedInWithToken().then((state)=>{
+persistState().then((state)=>{
   injectTapEventPlugin();
 
   let createStoreWithMiddleware = applyMiddleware(reduxThunk, ReduxPromise)(createStore)

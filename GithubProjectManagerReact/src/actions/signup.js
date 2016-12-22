@@ -8,10 +8,8 @@ function signupUserAction(formProps, dispatch) {
             username: localStorage.username,
             password: formProps.password,
             password_confirmation: formProps.passwordConfirmation,
-            temp_token: localStorage.temp_token
         }
     }).then((response) => {
-            localStorage.removeItem('temp_token')
             loginUser(formProps, dispatch)
         },
         redirectToHome

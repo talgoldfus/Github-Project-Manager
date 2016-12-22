@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const loggedInWithToken = ()=>{
+const persistState = ()=>{
 
   if(localStorage.token){
     return axios({
@@ -39,4 +39,4 @@ const loggedInWithToken = ()=>{
   }
 }
 
-export default loggedInWithToken;
+export default persistState;

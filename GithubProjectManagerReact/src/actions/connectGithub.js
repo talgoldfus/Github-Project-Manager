@@ -18,7 +18,6 @@ const connectGithubAction = (ghCode) => {
                 }
             } else {
                 browserHistory.push('/signup')
-                localStorage.setItem('temp_token', response.data.temp_token)
                 return {
                     type: 'GH_CONNECTED',
                     payload: true
