@@ -62,7 +62,7 @@ const TaskForm = props => {
             primary={true}
             onTouchTap={() => fields.push({})}
             icon={<ContentAdd />}
-            disabled={ ( (fields.length === assignees.length ) && props.collaborators ) || props.accessLevel === "collaborator" }
+            disabled={ ( (fields.length === assignees.length ) && props.collaborators ) ? true : false || props.accessLevel === "collaborator" }
           />
         </li>
         {fields.map((assignee, index) =>

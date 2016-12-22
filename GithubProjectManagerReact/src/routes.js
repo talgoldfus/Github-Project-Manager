@@ -2,6 +2,8 @@ import  React from 'react'
 import { Route } from 'react-router'
 import App from './components/App'
 import UserHomePage from './components/UserHomePage'
+import UserTasksPage from './components/UserTasksPage'
+import UserProjectsPage from './components/UserProjectsPage'
 import SignupForm from  './containers/forms/Signup'
 import LoginPage from  './containers/LoginPage'
 import GithubCallback from './connectors/GithubCallback'
@@ -23,7 +25,9 @@ export default (store)=>{
             <Route path="signin" component={LoginPage} />
             <Route path="signup" component={SignupForm} />
             <Route path="connected" component={GithubProjectSelector} onEnter={authorize(store)} />
+            <Route path="projects" component={UserProjectsPage} onEnter={authorize(store)} />
             <Route path="projects/:id" component={ProjectPage} onEnter={authorize(store)} />
+            <Route path="tasks" component={UserTasksPage} onEnter={authorize(store)} />
           </Route >
           <Route path="github-callback" component={GithubCallback} />
         </div>
