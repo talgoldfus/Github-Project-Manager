@@ -29,7 +29,6 @@ class AllUserProjects extends Component {
 
     return (
       <div>
-          <h1>My Active Projects</h1>
           <Tabs
             value={this.state.value}
             onChange={this.handleChange}

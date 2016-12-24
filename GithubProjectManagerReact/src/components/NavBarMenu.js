@@ -38,7 +38,6 @@ class NavBarMenu extends Component {
   }
 
   handleToggle() {
-    debugger
     this.setState({open: !this.state.open});
   }
 
@@ -55,6 +54,7 @@ class NavBarMenu extends Component {
           title="Github Project Manager"
           onLeftIconButtonTouchTap={ loggedIn ? this.handleToggle : null}
           iconElementRight={ loggedIn ? <LoggedButton /> : <LoginButton />}
+          onTitleTouchTap={()=>this.browseTo('/home')}
         />
         <Drawer
           docked={false}
@@ -72,12 +72,12 @@ class NavBarMenu extends Component {
             <Divider />
 
             <MenuItem
-              primaryText="My Tasks"
+              primaryText="All My Actvie Tasks"
               leftIcon={<NoteAdd />}
               onTouchTap={()=>this.browseTo('/tasks')}
             />
             <MenuItem
-              primaryText="My Projects"
+              primaryText="All My Actvie Projects"
               leftIcon={<Folder />}
               onTouchTap={()=>this.browseTo('/projects')}
             />

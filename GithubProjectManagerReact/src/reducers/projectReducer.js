@@ -2,7 +2,8 @@ const projectReducer = function(state = {
     allUserProjects:{},
     accessLevel: "" ,
     collaborators: [],
-    project_info: {}
+    project_info: {},
+    recentUserProjects:[]
 }, action) {
 
     switch (action.type) {
@@ -22,7 +23,11 @@ const projectReducer = function(state = {
                collaborator: action.payload.collaborator
              }
            }
-
+       case 'RECENT_USER_PROJECTS':
+          return {
+            ...state,
+            recentUserProjects: action.payload
+          }
         default:
             return state;
     }
