@@ -7,7 +7,7 @@ module Api
       def index
         if params[:recent]
           amount = params[:recent].to_i
-          recent_projects = @current_user.all_projects.sort_by{|p| p.updated_at }[0...amount]
+          recent_projects = @current_user.all_projects.sort_by{|p| p.updated_at }.reverse[0...amount]
           render json: recent_projects , each_serializer: Projects::IndexSerializer ,user: @current_user , key_transform: :underscore
         else
           render json: {manager: @current_user.managed_projects , collaborator: @current_user.collaborator_projects}

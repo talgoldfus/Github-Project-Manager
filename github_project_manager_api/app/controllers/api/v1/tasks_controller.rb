@@ -4,7 +4,13 @@ module Api
       before_action :authenticate_request!
 
       def index
-        render json: @current_user.collaborator_tasks , each_serializer: Tasks::IndexSerializer ,key_transform: :underscore
+        if params[:recent]
+          amount = params[:recent].to_i
+          tasks = @current_user.collaborator_tasks.order('updated_at DESC')[0...amount]
+        else
+          tasks =  @current_user.collaborator_tasks
+        end
+        render json: tasks , each_serializer: Tasks::IndexSerializer ,key_transform: :underscore
       end
 
       def update
